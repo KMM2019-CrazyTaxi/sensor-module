@@ -276,7 +276,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000       0xd2
+.text           0x00000000       0xe8
  *(.vectors)
  .vectors       0x00000000       0x8c c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr51/crtm1284p.o
                 0x00000000                __vector_default
@@ -370,15 +370,15 @@ END GROUP
                 0x0000009e       0x1e src/tests/basic_functionality_tests.o
                 0x0000009e                run_regular_pulse_test
  .text.board_init
-                0x000000bc        0x6 src/ASF/common/boards/user_board/init.o
+                0x000000bc       0x1c src/ASF/common/boards/user_board/init.o
                 0x000000bc                board_init
- .text.main     0x000000c2        0xc src/main.o
-                0x000000c2                main
-                0x000000ce                . = ALIGN (0x2)
+ .text.main     0x000000d8        0xc src/main.o
+                0x000000d8                main
+                0x000000e4                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000000ce        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr51\libgcc.a(_exit.o)
-                0x000000ce                _exit
-                0x000000ce                exit
+ .fini9         0x000000e4        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr51\libgcc.a(_exit.o)
+                0x000000e4                _exit
+                0x000000e4                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -397,11 +397,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000000ce        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr51\libgcc.a(_exit.o)
+ .fini0         0x000000e4        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x000000d2                _etext = .
+                0x000000e8                _etext = .
 
-.data           0x00800100        0x0 load address 0x000000d2
+.data           0x00800100        0x0 load address 0x000000e8
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -418,8 +418,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 0x00800100                PROVIDE (__bss_end, .)
-                0x000000d2                __data_load_start = LOADADDR (.data)
-                0x000000d2                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000000e8                __data_load_start = LOADADDR (.data)
+                0x000000e8                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800100        0x0
                 0x00800100                PROVIDE (__noinit_start, .)
@@ -499,23 +499,23 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x23d
+.debug_info     0x00000000      0x277
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000       0xd0 src/tests/basic_functionality_tests.o
- .debug_info    0x000000d0       0xa0 src/ASF/common/boards/user_board/init.o
- .debug_info    0x00000170       0xcd src/main.o
+ .debug_info    0x000000d0       0xda src/ASF/common/boards/user_board/init.o
+ .debug_info    0x000001aa       0xcd src/main.o
 
-.debug_abbrev   0x00000000      0x1a2
+.debug_abbrev   0x00000000      0x1d2
  *(.debug_abbrev)
  .debug_abbrev  0x00000000       0x84 src/tests/basic_functionality_tests.o
- .debug_abbrev  0x00000084       0x72 src/ASF/common/boards/user_board/init.o
- .debug_abbrev  0x000000f6       0xac src/main.o
+ .debug_abbrev  0x00000084       0xa2 src/ASF/common/boards/user_board/init.o
+ .debug_abbrev  0x00000126       0xac src/main.o
 
-.debug_line     0x00000000      0xb0b
+.debug_line     0x00000000      0xb17
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x3e7 src/tests/basic_functionality_tests.o
- .debug_line    0x000003e7      0x379 src/ASF/common/boards/user_board/init.o
- .debug_line    0x00000760      0x3ab src/main.o
+ .debug_line    0x000003e7      0x385 src/ASF/common/boards/user_board/init.o
+ .debug_line    0x0000076c      0x3ab src/main.o
 
 .debug_frame    0x00000000       0x6c
  *(.debug_frame)
@@ -523,13 +523,13 @@ END GROUP
  .debug_frame   0x00000024       0x24 src/ASF/common/boards/user_board/init.o
  .debug_frame   0x00000048       0x24 src/main.o
 
-.debug_str      0x00000000     0xf88f
+.debug_str      0x00000000     0xf8a3
  *(.debug_str)
  .debug_str     0x00000000     0xf833 src/tests/basic_functionality_tests.o
                                0xf9f0 (size before relaxing)
- .debug_str     0x0000f833       0x49 src/ASF/common/boards/user_board/init.o
-                               0xf9ce (size before relaxing)
- .debug_str     0x0000f87c       0x13 src/main.o
+ .debug_str     0x0000f833       0x5d src/ASF/common/boards/user_board/init.o
+                               0xf9e2 (size before relaxing)
+ .debug_str     0x0000f890       0x13 src/main.o
                                0xf9cc (size before relaxing)
 
 .debug_loc      0x00000000       0x5c
