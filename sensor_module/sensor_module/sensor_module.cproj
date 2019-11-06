@@ -76,56 +76,56 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
-  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
-  <avrgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>NDEBUG</Value>
-      <Value>BOARD=USER_BOARD</Value>
-    </ListValues>
-  </avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>../common/applications/user_application/user_board/config</Value>
-      <Value>../src/config</Value>
-      <Value>../src/ASF/common/boards</Value>
-      <Value>../src/ASF/mega/utils</Value>
-      <Value>../src/ASF/common/utils</Value>
-      <Value>../src/ASF/mega/utils/preprocessor</Value>
-      <Value>../src</Value>
-      <Value>../src/ASF/common/boards/user_board</Value>
-    </ListValues>
-  </avrgcc.compiler.directories.IncludePaths>
-  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
-  <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
-  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-  <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avrgcc.compiler.miscellaneous.OtherFlags>
-  <avrgcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>libm</Value>
-    </ListValues>
-  </avrgcc.linker.libraries.Libraries>
-  <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--relax</avrgcc.linker.miscellaneous.LinkerFlags>
-  <avrgcc.assembler.general.AssemblerFlags>-mrelax -DBOARD=USER_BOARD</avrgcc.assembler.general.AssemblerFlags>
-  <avrgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>../common/applications/user_application/user_board/config</Value>
-      <Value>../src/config</Value>
-      <Value>../src/ASF/common/boards</Value>
-      <Value>../src/ASF/mega/utils</Value>
-      <Value>../src/ASF/common/utils</Value>
-      <Value>../src/ASF/mega/utils/preprocessor</Value>
-      <Value>../src</Value>
-      <Value>../src/ASF/common/boards/user_board</Value>
-    </ListValues>
-  </avrgcc.assembler.general.IncludePaths>
-</AvrGcc>
+        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>NDEBUG</Value>
+            <Value>BOARD=USER_BOARD</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>../common/applications/user_application/user_board/config</Value>
+            <Value>../src/config</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/mega/utils</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/mega/utils/preprocessor</Value>
+            <Value>../src</Value>
+            <Value>../src/ASF/common/boards/user_board</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avrgcc.compiler.miscellaneous.OtherFlags>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--relax</avrgcc.linker.miscellaneous.LinkerFlags>
+        <avrgcc.assembler.general.AssemblerFlags>-mrelax -DBOARD=USER_BOARD</avrgcc.assembler.general.AssemblerFlags>
+        <avrgcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>../common/applications/user_application/user_board/config</Value>
+            <Value>../src/config</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/mega/utils</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/mega/utils/preprocessor</Value>
+            <Value>../src</Value>
+            <Value>../src/ASF/common/boards/user_board</Value>
+          </ListValues>
+        </avrgcc.assembler.general.IncludePaths>
+      </AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -153,6 +153,8 @@
       <Value>../src/ASF/mega/utils/preprocessor</Value>
       <Value>../src</Value>
       <Value>../src/ASF/common/boards/user_board</Value>
+      <Value>../src/range_finder_api/core/incl</Value>
+      <Value>../src/range_finder_api/platform/incl</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -199,9 +201,76 @@
     <Folder Include="src\ASF\mega\utils\assembler\" />
     <Folder Include="src\ASF\mega\utils\preprocessor\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\range_finder_api" />
+    <Folder Include="src\range_finder_api\core" />
+    <Folder Include="src\range_finder_api\core\incl" />
+    <Folder Include="src\range_finder_api\core\src\" />
+    <Folder Include="src\range_finder_api\platform" />
+    <Folder Include="src\range_finder_api\platform\incl" />
+    <Folder Include="src\range_finder_api\platform\src" />
     <Folder Include="src\tests" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\range_finder_api\core\incl\vl53l0x_api.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\incl\vl53l0x_api_calibration.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\incl\vl53l0x_api_core.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\incl\vl53l0x_api_ranging.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\incl\vl53l0x_api_strings.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\incl\vl53l0x_def.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\incl\vl53l0x_device.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\incl\vl53l0x_interrupt_threshold_settings.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\incl\vl53l0x_tuning.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\src\vl53l0x_api.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\src\vl53l0x_api_calibration.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\src\vl53l0x_api_core.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\src\vl53l0x_api_ranging.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\core\src\vl53l0x_api_strings.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\platform\incl\vl53l0x_i2c_platform.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\platform\incl\vl53l0x_platform.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\platform\incl\vl53l0x_platform_log.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\platform\incl\vl53l0x_types.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\platform\src\vl53l0x_platform.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\range_finder_api\platform\src\vl53l0x_platform_log.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\tests\basic_functionality_tests.c">
       <SubType>compile</SubType>
     </Compile>
@@ -265,6 +334,9 @@
     <Compile Include="src\main.c">
       <SubType>compile</SubType>
     </Compile>
+    <None Include="src\range_finder_api\core\src\vl53l0x_api.c.bak">
+      <SubType>compile</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

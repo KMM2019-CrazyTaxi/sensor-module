@@ -3,27 +3,27 @@ sensor_module.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000e8  00000000  00000000  00000054  2**1
+  0 .text         00000112  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .comment      00000030  00000000  00000000  0000013c  2**0
+  1 .comment      00000030  00000000  00000000  00000166  2**0
                   CONTENTS, READONLY
-  2 .debug_aranges 00000060  00000000  00000000  0000016c  2**0
+  2 .debug_aranges 00000060  00000000  00000000  00000196  2**0
                   CONTENTS, READONLY, DEBUGGING
-  3 .debug_info   00000277  00000000  00000000  000001cc  2**0
+  3 .debug_info   00000277  00000000  00000000  000001f6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_abbrev 000001d2  00000000  00000000  00000443  2**0
+  4 .debug_abbrev 000001d2  00000000  00000000  0000046d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_line   00000b17  00000000  00000000  00000615  2**0
+  5 .debug_line   00000b17  00000000  00000000  0000063f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_frame  0000006c  00000000  00000000  0000112c  2**2
+  6 .debug_frame  0000006c  00000000  00000000  00001158  2**2
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    0000f8a3  00000000  00000000  00001198  2**0
+  7 .debug_str    0000f8c2  00000000  00000000  000011c4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    0000005c  00000000  00000000  00010a3b  2**0
+  8 .debug_loc    0000005c  00000000  00000000  00010a86  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_ranges 00000030  00000000  00000000  00010a97  2**0
+  9 .debug_ranges 00000030  00000000  00000000  00010ae2  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_macro  00003d13  00000000  00000000  00010ac7  2**0
+ 10 .debug_macro  00002cd4  00000000  00000000  00010b12  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -31,73 +31,73 @@ Disassembly of section .text:
 00000000 <__vectors>:
    0:	45 c0       	rjmp	.+138    	; 0x8c <__ctors_end>
    2:	00 00       	nop
-   4:	4b c0       	rjmp	.+150    	; 0x9c <__bad_interrupt>
+   4:	60 c0       	rjmp	.+192    	; 0xc6 <__bad_interrupt>
    6:	00 00       	nop
-   8:	49 c0       	rjmp	.+146    	; 0x9c <__bad_interrupt>
+   8:	5e c0       	rjmp	.+188    	; 0xc6 <__bad_interrupt>
    a:	00 00       	nop
-   c:	47 c0       	rjmp	.+142    	; 0x9c <__bad_interrupt>
+   c:	5c c0       	rjmp	.+184    	; 0xc6 <__bad_interrupt>
    e:	00 00       	nop
-  10:	45 c0       	rjmp	.+138    	; 0x9c <__bad_interrupt>
+  10:	5a c0       	rjmp	.+180    	; 0xc6 <__bad_interrupt>
   12:	00 00       	nop
-  14:	43 c0       	rjmp	.+134    	; 0x9c <__bad_interrupt>
+  14:	58 c0       	rjmp	.+176    	; 0xc6 <__bad_interrupt>
   16:	00 00       	nop
-  18:	41 c0       	rjmp	.+130    	; 0x9c <__bad_interrupt>
+  18:	56 c0       	rjmp	.+172    	; 0xc6 <__bad_interrupt>
   1a:	00 00       	nop
-  1c:	3f c0       	rjmp	.+126    	; 0x9c <__bad_interrupt>
+  1c:	54 c0       	rjmp	.+168    	; 0xc6 <__bad_interrupt>
   1e:	00 00       	nop
-  20:	3d c0       	rjmp	.+122    	; 0x9c <__bad_interrupt>
+  20:	52 c0       	rjmp	.+164    	; 0xc6 <__bad_interrupt>
   22:	00 00       	nop
-  24:	3b c0       	rjmp	.+118    	; 0x9c <__bad_interrupt>
+  24:	50 c0       	rjmp	.+160    	; 0xc6 <__bad_interrupt>
   26:	00 00       	nop
-  28:	39 c0       	rjmp	.+114    	; 0x9c <__bad_interrupt>
+  28:	4e c0       	rjmp	.+156    	; 0xc6 <__bad_interrupt>
   2a:	00 00       	nop
-  2c:	37 c0       	rjmp	.+110    	; 0x9c <__bad_interrupt>
+  2c:	4c c0       	rjmp	.+152    	; 0xc6 <__bad_interrupt>
   2e:	00 00       	nop
-  30:	35 c0       	rjmp	.+106    	; 0x9c <__bad_interrupt>
+  30:	4a c0       	rjmp	.+148    	; 0xc6 <__bad_interrupt>
   32:	00 00       	nop
-  34:	33 c0       	rjmp	.+102    	; 0x9c <__bad_interrupt>
+  34:	48 c0       	rjmp	.+144    	; 0xc6 <__bad_interrupt>
   36:	00 00       	nop
-  38:	31 c0       	rjmp	.+98     	; 0x9c <__bad_interrupt>
+  38:	46 c0       	rjmp	.+140    	; 0xc6 <__bad_interrupt>
   3a:	00 00       	nop
-  3c:	2f c0       	rjmp	.+94     	; 0x9c <__bad_interrupt>
+  3c:	44 c0       	rjmp	.+136    	; 0xc6 <__bad_interrupt>
   3e:	00 00       	nop
-  40:	2d c0       	rjmp	.+90     	; 0x9c <__bad_interrupt>
+  40:	42 c0       	rjmp	.+132    	; 0xc6 <__bad_interrupt>
   42:	00 00       	nop
-  44:	2b c0       	rjmp	.+86     	; 0x9c <__bad_interrupt>
+  44:	40 c0       	rjmp	.+128    	; 0xc6 <__bad_interrupt>
   46:	00 00       	nop
-  48:	29 c0       	rjmp	.+82     	; 0x9c <__bad_interrupt>
+  48:	3e c0       	rjmp	.+124    	; 0xc6 <__bad_interrupt>
   4a:	00 00       	nop
-  4c:	27 c0       	rjmp	.+78     	; 0x9c <__bad_interrupt>
+  4c:	3c c0       	rjmp	.+120    	; 0xc6 <__bad_interrupt>
   4e:	00 00       	nop
-  50:	25 c0       	rjmp	.+74     	; 0x9c <__bad_interrupt>
+  50:	3a c0       	rjmp	.+116    	; 0xc6 <__bad_interrupt>
   52:	00 00       	nop
-  54:	23 c0       	rjmp	.+70     	; 0x9c <__bad_interrupt>
+  54:	38 c0       	rjmp	.+112    	; 0xc6 <__bad_interrupt>
   56:	00 00       	nop
-  58:	21 c0       	rjmp	.+66     	; 0x9c <__bad_interrupt>
+  58:	36 c0       	rjmp	.+108    	; 0xc6 <__bad_interrupt>
   5a:	00 00       	nop
-  5c:	1f c0       	rjmp	.+62     	; 0x9c <__bad_interrupt>
+  5c:	34 c0       	rjmp	.+104    	; 0xc6 <__bad_interrupt>
   5e:	00 00       	nop
-  60:	1d c0       	rjmp	.+58     	; 0x9c <__bad_interrupt>
+  60:	32 c0       	rjmp	.+100    	; 0xc6 <__bad_interrupt>
   62:	00 00       	nop
-  64:	1b c0       	rjmp	.+54     	; 0x9c <__bad_interrupt>
+  64:	30 c0       	rjmp	.+96     	; 0xc6 <__bad_interrupt>
   66:	00 00       	nop
-  68:	19 c0       	rjmp	.+50     	; 0x9c <__bad_interrupt>
+  68:	2e c0       	rjmp	.+92     	; 0xc6 <__bad_interrupt>
   6a:	00 00       	nop
-  6c:	17 c0       	rjmp	.+46     	; 0x9c <__bad_interrupt>
+  6c:	2c c0       	rjmp	.+88     	; 0xc6 <__bad_interrupt>
   6e:	00 00       	nop
-  70:	15 c0       	rjmp	.+42     	; 0x9c <__bad_interrupt>
+  70:	2a c0       	rjmp	.+84     	; 0xc6 <__bad_interrupt>
   72:	00 00       	nop
-  74:	13 c0       	rjmp	.+38     	; 0x9c <__bad_interrupt>
+  74:	28 c0       	rjmp	.+80     	; 0xc6 <__bad_interrupt>
   76:	00 00       	nop
-  78:	11 c0       	rjmp	.+34     	; 0x9c <__bad_interrupt>
+  78:	26 c0       	rjmp	.+76     	; 0xc6 <__bad_interrupt>
   7a:	00 00       	nop
-  7c:	0f c0       	rjmp	.+30     	; 0x9c <__bad_interrupt>
+  7c:	24 c0       	rjmp	.+72     	; 0xc6 <__bad_interrupt>
   7e:	00 00       	nop
-  80:	0d c0       	rjmp	.+26     	; 0x9c <__bad_interrupt>
+  80:	22 c0       	rjmp	.+68     	; 0xc6 <__bad_interrupt>
   82:	00 00       	nop
-  84:	0b c0       	rjmp	.+22     	; 0x9c <__bad_interrupt>
+  84:	20 c0       	rjmp	.+64     	; 0xc6 <__bad_interrupt>
   86:	00 00       	nop
-  88:	09 c0       	rjmp	.+18     	; 0x9c <__bad_interrupt>
+  88:	1e c0       	rjmp	.+60     	; 0xc6 <__bad_interrupt>
 	...
 
 0000008c <__ctors_end>:
@@ -107,99 +107,128 @@ Disassembly of section .text:
   92:	d0 e4       	ldi	r29, 0x40	; 64
   94:	de bf       	out	0x3e, r29	; 62
   96:	cd bf       	out	0x3d, r28	; 61
-  98:	1f d0       	rcall	.+62     	; 0xd8 <main>
-  9a:	24 c0       	rjmp	.+72     	; 0xe4 <_exit>
 
-0000009c <__bad_interrupt>:
-  9c:	b1 cf       	rjmp	.-158    	; 0x0 <__vectors>
+00000098 <__do_copy_data>:
+  98:	11 e0       	ldi	r17, 0x01	; 1
+  9a:	a0 e0       	ldi	r26, 0x00	; 0
+  9c:	b1 e0       	ldi	r27, 0x01	; 1
+  9e:	e2 e1       	ldi	r30, 0x12	; 18
+  a0:	f1 e0       	ldi	r31, 0x01	; 1
+  a2:	00 e0       	ldi	r16, 0x00	; 0
+  a4:	0b bf       	out	0x3b, r16	; 59
+  a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
+  a8:	07 90       	elpm	r0, Z+
+  aa:	0d 92       	st	X+, r0
+  ac:	a0 30       	cpi	r26, 0x00	; 0
+  ae:	b1 07       	cpc	r27, r17
+  b0:	d9 f7       	brne	.-10     	; 0xa8 <__do_copy_data+0x10>
 
-0000009e <run_regular_pulse_test>:
+000000b2 <__do_clear_bss>:
+  b2:	21 e0       	ldi	r18, 0x01	; 1
+  b4:	a0 e0       	ldi	r26, 0x00	; 0
+  b6:	b1 e0       	ldi	r27, 0x01	; 1
+  b8:	01 c0       	rjmp	.+2      	; 0xbc <.do_clear_bss_start>
+
+000000ba <.do_clear_bss_loop>:
+  ba:	1d 92       	st	X+, r1
+
+000000bc <.do_clear_bss_start>:
+  bc:	a0 30       	cpi	r26, 0x00	; 0
+  be:	b2 07       	cpc	r27, r18
+  c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
+  c2:	1f d0       	rcall	.+62     	; 0x102 <main>
+  c4:	24 c0       	rjmp	.+72     	; 0x10e <_exit>
+
+000000c6 <__bad_interrupt>:
+  c6:	9c cf       	rjmp	.-200    	; 0x0 <__vectors>
+
+000000c8 <run_regular_pulse_test>:
 #include "basic_functionality_tests.h"
 
 void run_regular_pulse_test(const uint8_t count_to)
 {
 	while (1) {
 		for (uint8_t pulse = 0; pulse < count_to; ++pulse) {
-  9e:	20 e0       	ldi	r18, 0x00	; 0
-  a0:	40 e0       	ldi	r20, 0x00	; 0
+  c8:	20 e0       	ldi	r18, 0x00	; 0
+  ca:	40 e0       	ldi	r20, 0x00	; 0
 			PORTA = pulse;
-  a2:	3f ef       	ldi	r19, 0xFF	; 255
-  a4:	06 c0       	rjmp	.+12     	; 0xb2 <run_regular_pulse_test+0x14>
+  cc:	3f ef       	ldi	r19, 0xFF	; 255
+  ce:	06 c0       	rjmp	.+12     	; 0xdc <run_regular_pulse_test+0x14>
 #include "basic_functionality_tests.h"
 
 void run_regular_pulse_test(const uint8_t count_to)
 {
 	while (1) {
 		for (uint8_t pulse = 0; pulse < count_to; ++pulse) {
-  a6:	24 2f       	mov	r18, r20
+  d0:	24 2f       	mov	r18, r20
 			PORTA = pulse;
-  a8:	22 b9       	out	0x02, r18	; 2
-  aa:	93 2f       	mov	r25, r19
-  ac:	91 50       	subi	r25, 0x01	; 1
+  d2:	22 b9       	out	0x02, r18	; 2
+  d4:	93 2f       	mov	r25, r19
+  d6:	91 50       	subi	r25, 0x01	; 1
 			for (uint8_t delay_cnt = 1; delay_cnt != 0; ++delay_cnt) { }
-  ae:	f1 f7       	brne	.-4      	; 0xac <run_regular_pulse_test+0xe>
+  d8:	f1 f7       	brne	.-4      	; 0xd6 <run_regular_pulse_test+0xe>
 #include "basic_functionality_tests.h"
 
 void run_regular_pulse_test(const uint8_t count_to)
 {
 	while (1) {
 		for (uint8_t pulse = 0; pulse < count_to; ++pulse) {
-  b0:	2f 5f       	subi	r18, 0xFF	; 255
-  b2:	28 17       	cp	r18, r24
-  b4:	c8 f3       	brcs	.-14     	; 0xa8 <run_regular_pulse_test+0xa>
-  b6:	81 11       	cpse	r24, r1
-  b8:	f6 cf       	rjmp	.-20     	; 0xa6 <run_regular_pulse_test+0x8>
-  ba:	ff cf       	rjmp	.-2      	; 0xba <run_regular_pulse_test+0x1c>
+  da:	2f 5f       	subi	r18, 0xFF	; 255
+  dc:	28 17       	cp	r18, r24
+  de:	c8 f3       	brcs	.-14     	; 0xd2 <run_regular_pulse_test+0xa>
+  e0:	81 11       	cpse	r24, r1
+  e2:	f6 cf       	rjmp	.-20     	; 0xd0 <run_regular_pulse_test+0x8>
+  e4:	ff cf       	rjmp	.-2      	; 0xe4 <run_regular_pulse_test+0x1c>
 
-000000bc <board_init>:
+000000e6 <board_init>:
 }
 
 static void i2c_init(void)
 {
 	// Sätt på ström till TWI-krets.
 	PRR0 = PRR0 & ~(1 << PRTWI);
-  bc:	e4 e6       	ldi	r30, 0x64	; 100
-  be:	f0 e0       	ldi	r31, 0x00	; 0
-  c0:	80 81       	ld	r24, Z
-  c2:	8f 77       	andi	r24, 0x7F	; 127
-  c4:	80 83       	st	Z, r24
+  e6:	e4 e6       	ldi	r30, 0x64	; 100
+  e8:	f0 e0       	ldi	r31, 0x00	; 0
+  ea:	80 81       	ld	r24, Z
+  ec:	8f 77       	andi	r24, 0x7F	; 127
+  ee:	80 83       	st	Z, r24
 	
 	// Konfigurera SCL-frekvens.
 	TWSR = 0x00; // Prescaler 1 ger grund på 1 MHz, så möjliga klockfrekvenser 3.9 - 1000 KHz (400 KHz max enl. protokoll).
-  c6:	10 92 b9 00 	sts	0x00B9, r1
+  f0:	10 92 b9 00 	sts	0x00B9, r1
 	TWBR = 50; // Ger SCL-frekvens 10 KHz.
-  ca:	82 e3       	ldi	r24, 0x32	; 50
-  cc:	80 93 b8 00 	sts	0x00B8, r24
+  f4:	82 e3       	ldi	r24, 0x32	; 50
+  f6:	80 93 b8 00 	sts	0x00B8, r24
 	unsigned char twcr_value = 0;
 	twcr_value |= (0 << TWINT); // Clear interrupt bit.
 	twcr_value |= (0 << TWIE); // Don't use interrupt for I2C transmissions.
 	twcr_value |= (1 << TWEA); // Enable ACK when data received.
 	twcr_value |= (1 << TWEN); // Enable I2C circuit.
 	TWCR = twcr_value;	
-  d0:	84 e4       	ldi	r24, 0x44	; 68
-  d2:	80 93 bc 00 	sts	0x00BC, r24
-  d6:	08 95       	ret
+  fa:	84 e4       	ldi	r24, 0x44	; 68
+  fc:	80 93 bc 00 	sts	0x00BC, r24
+ 100:	08 95       	ret
 
-000000d8 <main>:
+00000102 <main>:
 
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-  d8:	f1 df       	rcall	.-30     	; 0xbc <board_init>
+ 102:	f1 df       	rcall	.-30     	; 0xe6 <board_init>
 	run_regular_pulse_test(255);
-  da:	8f ef       	ldi	r24, 0xFF	; 255
-  dc:	e0 df       	rcall	.-64     	; 0x9e <run_regular_pulse_test>
+ 104:	8f ef       	ldi	r24, 0xFF	; 255
+ 106:	e0 df       	rcall	.-64     	; 0xc8 <run_regular_pulse_test>
 
 	// Insert application code here, after the board has been initialized.
 }
-  de:	80 e0       	ldi	r24, 0x00	; 0
-  e0:	90 e0       	ldi	r25, 0x00	; 0
-  e2:	08 95       	ret
+ 108:	80 e0       	ldi	r24, 0x00	; 0
+ 10a:	90 e0       	ldi	r25, 0x00	; 0
+ 10c:	08 95       	ret
 
-000000e4 <_exit>:
-  e4:	f8 94       	cli
+0000010e <_exit>:
+ 10e:	f8 94       	cli
 
-000000e6 <__stop_program>:
-  e6:	ff cf       	rjmp	.-2      	; 0xe6 <__stop_program>
+00000110 <__stop_program>:
+ 110:	ff cf       	rjmp	.-2      	; 0x110 <__stop_program>
