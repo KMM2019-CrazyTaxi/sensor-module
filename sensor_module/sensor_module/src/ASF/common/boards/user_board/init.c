@@ -27,10 +27,10 @@ static void i2c_init(void)
 	
 	// Övrig konfigurering.
 	unsigned char twcr_value = 0;
-	twcr_value |= (0 << TWINT); // Clear interrupt bit.
+	twcr_value |= (1 << TWINT); // Set the interrupt bit, indicating that i2c should not start transmitting.
 	twcr_value |= (0 << TWIE); // Don't use interrupt for I2C transmissions.
 	twcr_value |= (1 << TWEA); // Enable ACK when data received.
-	twcr_value |= (1 << TWEN); // Enable I2C circuit.
+	//twcr_value |= (1 << TWEN); // Enable I2C circuit.
 	TWCR = twcr_value;	
 }
 
@@ -43,4 +43,6 @@ static void communication_init(void)
 void board_init(void)
 {
 	communication_init();
+	basic_io_test_init();
+	//basic_io_test_init();
 }

@@ -18,5 +18,6 @@
  * Assumes: Port A is been configured as output port.
  */
 void run_regular_pulse_test(const uint8_t count_to);
+void i2c_transmit_test(const uint8_t data);
 
 #endif /* BASIC_IO_TEST_H_ */

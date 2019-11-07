@@ -3,27 +3,27 @@ sensor_module.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000112  00000000  00000000  00000054  2**1
+  0 .text         0000014e  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .comment      00000030  00000000  00000000  00000166  2**0
+  1 .comment      00000030  00000000  00000000  000001a2  2**0
                   CONTENTS, READONLY
-  2 .debug_aranges 00000060  00000000  00000000  00000196  2**0
+  2 .debug_aranges 00000070  00000000  00000000  000001d2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  3 .debug_info   00000277  00000000  00000000  000001f6  2**0
+  3 .debug_info   00000353  00000000  00000000  00000242  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_abbrev 000001d2  00000000  00000000  0000046d  2**0
+  4 .debug_abbrev 00000290  00000000  00000000  00000595  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_line   00000b17  00000000  00000000  0000063f  2**0
+  5 .debug_line   00000bdf  00000000  00000000  00000825  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_frame  0000006c  00000000  00000000  00001158  2**2
+  6 .debug_frame  0000008c  00000000  00000000  00001404  2**2
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    0000f8c2  00000000  00000000  000011c4  2**0
+  7 .debug_str    0000f90c  00000000  00000000  00001490  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    0000005c  00000000  00000000  00010a86  2**0
+  8 .debug_loc    0000007a  00000000  00000000  00010d9c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_ranges 00000030  00000000  00000000  00010ae2  2**0
+  9 .debug_ranges 00000088  00000000  00000000  00010e16  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_macro  00002cd4  00000000  00000000  00010b12  2**0
+ 10 .debug_macro  00002cd4  00000000  00000000  00010e9e  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -112,7 +112,7 @@ Disassembly of section .text:
   98:	11 e0       	ldi	r17, 0x01	; 1
   9a:	a0 e0       	ldi	r26, 0x00	; 0
   9c:	b1 e0       	ldi	r27, 0x01	; 1
-  9e:	e2 e1       	ldi	r30, 0x12	; 18
+  9e:	ee e4       	ldi	r30, 0x4E	; 78
   a0:	f1 e0       	ldi	r31, 0x01	; 1
   a2:	00 e0       	ldi	r16, 0x00	; 0
   a4:	0b bf       	out	0x3b, r16	; 59
@@ -136,99 +136,175 @@ Disassembly of section .text:
   bc:	a0 30       	cpi	r26, 0x00	; 0
   be:	b2 07       	cpc	r27, r18
   c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
-  c2:	1f d0       	rcall	.+62     	; 0x102 <main>
-  c4:	24 c0       	rjmp	.+72     	; 0x10e <_exit>
+  c2:	3d d0       	rcall	.+122    	; 0x13e <main>
+  c4:	42 c0       	rjmp	.+132    	; 0x14a <_exit>
 
 000000c6 <__bad_interrupt>:
   c6:	9c cf       	rjmp	.-200    	; 0x0 <__vectors>
 
-000000c8 <run_regular_pulse_test>:
+000000c8 <i2c_wait_for_ack>:
 #include "basic_functionality_tests.h"
 
 void run_regular_pulse_test(const uint8_t count_to)
 {
 	while (1) {
 		for (uint8_t pulse = 0; pulse < count_to; ++pulse) {
-  c8:	20 e0       	ldi	r18, 0x00	; 0
-  ca:	40 e0       	ldi	r20, 0x00	; 0
-			PORTA = pulse;
-  cc:	3f ef       	ldi	r19, 0xFF	; 255
-  ce:	06 c0       	rjmp	.+12     	; 0xdc <run_regular_pulse_test+0x14>
-#include "basic_functionality_tests.h"
+  c8:	83 e0       	ldi	r24, 0x03	; 3
+  ca:	82 b9       	out	0x02, r24	; 2
+  cc:	ec eb       	ldi	r30, 0xBC	; 188
+  ce:	f0 e0       	ldi	r31, 0x00	; 0
+  d0:	80 81       	ld	r24, Z
+  d2:	88 23       	and	r24, r24
+  d4:	ec f7       	brge	.-6      	; 0xd0 <i2c_wait_for_ack+0x8>
+  d6:	84 e0       	ldi	r24, 0x04	; 4
+  d8:	82 b9       	out	0x02, r24	; 2
+  da:	08 95       	ret
 
-void run_regular_pulse_test(const uint8_t count_to)
+000000dc <i2c_transmit_test>:
+	TWCR = (1 << TWINT) | (1 << TWEN);
+	i2c_wait_for_ack();
+}
+
+void i2c_transmit_test(const uint8_t data)
 {
-	while (1) {
-		for (uint8_t pulse = 0; pulse < count_to; ++pulse) {
-  d0:	24 2f       	mov	r18, r20
-			PORTA = pulse;
-  d2:	22 b9       	out	0x02, r18	; 2
-  d4:	93 2f       	mov	r25, r19
-  d6:	91 50       	subi	r25, 0x01	; 1
-			for (uint8_t delay_cnt = 1; delay_cnt != 0; ++delay_cnt) { }
-  d8:	f1 f7       	brne	.-4      	; 0xd6 <run_regular_pulse_test+0xe>
-#include "basic_functionality_tests.h"
+  dc:	a8 2e       	mov	r10, r24
+	PORTA = 4;
+}
 
-void run_regular_pulse_test(const uint8_t count_to)
+static void i2c_send_start_bit(void)
 {
-	while (1) {
-		for (uint8_t pulse = 0; pulse < count_to; ++pulse) {
-  da:	2f 5f       	subi	r18, 0xFF	; 255
-  dc:	28 17       	cp	r18, r24
-  de:	c8 f3       	brcs	.-14     	; 0xd2 <run_regular_pulse_test+0xa>
-  e0:	81 11       	cpse	r24, r1
-  e2:	f6 cf       	rjmp	.-20     	; 0xd0 <run_regular_pulse_test+0x8>
-  e4:	ff cf       	rjmp	.-2      	; 0xe4 <run_regular_pulse_test+0x1c>
+	PORTA = 1;
+  de:	bb 24       	eor	r11, r11
+  e0:	b3 94       	inc	r11
+	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
+  e2:	cc eb       	ldi	r28, 0xBC	; 188
+  e4:	d0 e0       	ldi	r29, 0x00	; 0
+  e6:	0f 2e       	mov	r0, r31
+  e8:	f4 ea       	ldi	r31, 0xA4	; 164
+  ea:	cf 2e       	mov	r12, r31
+  ec:	f0 2d       	mov	r31, r0
+	PORTA = 2;
+  ee:	68 94       	set
+  f0:	dd 24       	eor	r13, r13
+  f2:	d1 f8       	bld	r13, 1
+	i2c_wait_for_ack();
+}
 
-000000e6 <board_init>:
+static void i2c_send_data(const uint8_t data)
+{
+	TWDR = data;
+  f4:	0b eb       	ldi	r16, 0xBB	; 187
+  f6:	10 e0       	ldi	r17, 0x00	; 0
+	TWCR = (1 << TWINT) | (1 << TWEN);
+  f8:	0f 2e       	mov	r0, r31
+  fa:	f4 e8       	ldi	r31, 0x84	; 132
+  fc:	ef 2e       	mov	r14, r31
+  fe:	f0 2d       	mov	r31, r0
+	i2c_wait_for_ack();
+}
+
+static void i2c_send_stop_bit(void)
+{
+	TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
+ 100:	0f 2e       	mov	r0, r31
+ 102:	f4 e9       	ldi	r31, 0x94	; 148
+ 104:	ff 2e       	mov	r15, r31
+ 106:	f0 2d       	mov	r31, r0
+	PORTA = 4;
+}
+
+static void i2c_send_start_bit(void)
+{
+	PORTA = 1;
+ 108:	b2 b8       	out	0x02, r11	; 2
+	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
+ 10a:	c8 82       	st	Y, r12
+	PORTA = 2;
+ 10c:	d2 b8       	out	0x02, r13	; 2
+	i2c_wait_for_ack();
+ 10e:	dc df       	rcall	.-72     	; 0xc8 <i2c_wait_for_ack>
+	i2c_wait_for_ack();
+}
+
+static void i2c_send_data(const uint8_t data)
+{
+	TWDR = data;
+ 110:	f8 01       	movw	r30, r16
+ 112:	a0 82       	st	Z, r10
+	TWCR = (1 << TWINT) | (1 << TWEN);
+ 114:	e8 82       	st	Y, r14
+	i2c_wait_for_ack();
+ 116:	d8 df       	rcall	.-80     	; 0xc8 <i2c_wait_for_ack>
+	i2c_wait_for_ack();
+}
+
+static void i2c_send_stop_bit(void)
+{
+	TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
+ 118:	f8 82       	st	Y, r15
+	i2c_wait_for_ack();
+ 11a:	d6 df       	rcall	.-84     	; 0xc8 <i2c_wait_for_ack>
+ 11c:	f5 cf       	rjmp	.-22     	; 0x108 <i2c_transmit_test+0x2c>
+
+0000011e <board_init>:
 }
 
 static void i2c_init(void)
 {
 	// Sätt på ström till TWI-krets.
 	PRR0 = PRR0 & ~(1 << PRTWI);
-  e6:	e4 e6       	ldi	r30, 0x64	; 100
-  e8:	f0 e0       	ldi	r31, 0x00	; 0
-  ea:	80 81       	ld	r24, Z
-  ec:	8f 77       	andi	r24, 0x7F	; 127
-  ee:	80 83       	st	Z, r24
+ 11e:	e4 e6       	ldi	r30, 0x64	; 100
+ 120:	f0 e0       	ldi	r31, 0x00	; 0
+ 122:	80 81       	ld	r24, Z
+ 124:	8f 77       	andi	r24, 0x7F	; 127
+ 126:	80 83       	st	Z, r24
 	
 	// Konfigurera SCL-frekvens.
 	TWSR = 0x00; // Prescaler 1 ger grund på 1 MHz, så möjliga klockfrekvenser 3.9 - 1000 KHz (400 KHz max enl. protokoll).
-  f0:	10 92 b9 00 	sts	0x00B9, r1
+ 128:	10 92 b9 00 	sts	0x00B9, r1
 	TWBR = 50; // Ger SCL-frekvens 10 KHz.
-  f4:	82 e3       	ldi	r24, 0x32	; 50
-  f6:	80 93 b8 00 	sts	0x00B8, r24
+ 12c:	82 e3       	ldi	r24, 0x32	; 50
+ 12e:	80 93 b8 00 	sts	0x00B8, r24
 	unsigned char twcr_value = 0;
-	twcr_value |= (0 << TWINT); // Clear interrupt bit.
+	twcr_value |= (1 << TWINT); // Set the interrupt bit, indicating that i2c should not start transmitting.
 	twcr_value |= (0 << TWIE); // Don't use interrupt for I2C transmissions.
 	twcr_value |= (1 << TWEA); // Enable ACK when data received.
-	twcr_value |= (1 << TWEN); // Enable I2C circuit.
+	//twcr_value |= (1 << TWEN); // Enable I2C circuit.
 	TWCR = twcr_value;	
-  fa:	84 e4       	ldi	r24, 0x44	; 68
-  fc:	80 93 bc 00 	sts	0x00BC, r24
- 100:	08 95       	ret
+ 132:	80 ec       	ldi	r24, 0xC0	; 192
+ 134:	80 93 bc 00 	sts	0x00BC, r24
+#include <conf_board.h>
 
-00000102 <main>:
+static void basic_io_test_init(void)
+{
+	// Initiera io-portar.
+	DDRA = 0x00; // Alla pinnar på A är input.
+ 138:	11 b8       	out	0x01, r1	; 1
+	__asm__ __volatile__ ("nop");
+ 13a:	00 00       	nop
+ 13c:	08 95       	ret
+
+0000013e <main>:
 
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
- 102:	f1 df       	rcall	.-30     	; 0xe6 <board_init>
-	run_regular_pulse_test(255);
- 104:	8f ef       	ldi	r24, 0xFF	; 255
- 106:	e0 df       	rcall	.-64     	; 0xc8 <run_regular_pulse_test>
+ 13e:	ef df       	rcall	.-34     	; 0x11e <board_init>
+	//run_regular_pulse_test(255);
+	i2c_transmit_test(0xBE);
+ 140:	8e eb       	ldi	r24, 0xBE	; 190
+ 142:	cc df       	rcall	.-104    	; 0xdc <i2c_transmit_test>
 
 	// Insert application code here, after the board has been initialized.
 }
- 108:	80 e0       	ldi	r24, 0x00	; 0
- 10a:	90 e0       	ldi	r25, 0x00	; 0
- 10c:	08 95       	ret
+ 144:	80 e0       	ldi	r24, 0x00	; 0
+ 146:	90 e0       	ldi	r25, 0x00	; 0
+ 148:	08 95       	ret
 
-0000010e <_exit>:
- 10e:	f8 94       	cli
+0000014a <_exit>:
+ 14a:	f8 94       	cli
 
-00000110 <__stop_program>:
- 110:	ff cf       	rjmp	.-2      	; 0x110 <__stop_program>
+0000014c <__stop_program>:
+ 14c:	ff cf       	rjmp	.-2      	; 0x14c <__stop_program>

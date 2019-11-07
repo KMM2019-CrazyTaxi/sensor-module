@@ -34,7 +34,8 @@ int main (void)
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-	run_regular_pulse_test(255);
+	//run_regular_pulse_test(255);
+	i2c_transmit_test(0xBE);
 
 	// Insert application code here, after the board has been initialized.
 }
