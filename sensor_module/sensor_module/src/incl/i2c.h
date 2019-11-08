@@ -33,6 +33,7 @@ void i2c_send_stop_bit(void);
  * data: The data to transmit.
  * Returns: The I2C status code (TWDR).
  * Assumes: All I2C registers except TWCR has been configured.
+ *          That a start bit has been sent on the bus.
  */
 uint8_t i2c_send_data(const uint8_t data);
 

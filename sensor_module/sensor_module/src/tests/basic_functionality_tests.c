@@ -20,15 +20,17 @@ void run_regular_pulse_test(const uint8_t count_to)
 void i2c_transmit_test(void)
 {
 	accelerator_init();
-	uint8_t sensor_value = 0;
+	uint8_t sensor_values[6];
 	while (1)
 	{
-		accelerator_get_register_value(0x27, &sensor_value);
-		if (sensor_value & 1)
+		if (accelerator_new_values_available())
 		{
-			accelerator_get_register_value(0x28, &sensor_value);
-			accelerator_get_register_value(0x29, &sensor_value);
-			PORTA = sensor_value;
+			accelerator_get_linear_acceleration(sensor_values);
+			PORTA = sensor_values[1];
+		}
+		else
+		{
+			PORTA = 0xAB;
 		}
 	}
 }
