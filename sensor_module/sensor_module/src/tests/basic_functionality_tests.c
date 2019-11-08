@@ -17,40 +17,18 @@ void run_regular_pulse_test(const uint8_t count_to)
 	}
 }
 
-static void i2c_wait_for_ack(void)
+void i2c_transmit_test(void)
 {
-	PORTA = 3;
-	while (!(TWCR & (1 << TWINT))) { }
-	PORTA = 4;
-}
-
-static void i2c_send_start_bit(void)
-{
-	PORTA = 1;
-	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
-	PORTA = 2;
-	i2c_wait_for_ack();
-}
-
-static void i2c_send_stop_bit(void)
-{
-	TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
-	i2c_wait_for_ack();
-}
-
-static void i2c_send_data(const uint8_t data)
-{
-	TWDR = data;
-	TWCR = (1 << TWINT) | (1 << TWEN);
-	i2c_wait_for_ack();
-}
-
-void i2c_transmit_test(const uint8_t data)
-{
+	accelerator_init();
+	uint8_t sensor_value = 0;
 	while (1)
 	{
-		i2c_send_start_bit();
-		i2c_send_data(data);
-		i2c_send_stop_bit();
+		accelerator_get_register_value(0x27, &sensor_value);
+		if (sensor_value & 1)
+		{
+			accelerator_get_register_value(0x28, &sensor_value);
+			accelerator_get_register_value(0x29, &sensor_value);
+			PORTA = sensor_value;
+		}
 	}
 }

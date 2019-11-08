@@ -9,7 +9,7 @@
 #include <board.h>
 #include <conf_board.h>
 
-static void basic_io_test_init(void)
+static void debug_io_init(void)
 {
 	// Initiera io-portar.
 	DDRA = 0x00; // Alla pinnar på A är input.
@@ -23,15 +23,7 @@ static void i2c_init(void)
 	
 	// Konfigurera SCL-frekvens.
 	TWSR = 0x00; // Prescaler 1 ger grund på 1 MHz, så möjliga klockfrekvenser 3.9 - 1000 KHz (400 KHz max enl. protokoll).
-	TWBR = 50; // Ger SCL-frekvens 10 KHz.
-	
-	// Övrig konfigurering.
-	unsigned char twcr_value = 0;
-	twcr_value |= (1 << TWINT); // Set the interrupt bit, indicating that i2c should not start transmitting.
-	twcr_value |= (0 << TWIE); // Don't use interrupt for I2C transmissions.
-	twcr_value |= (1 << TWEA); // Enable ACK when data received.
-	//twcr_value |= (1 << TWEN); // Enable I2C circuit.
-	TWCR = twcr_value;	
+	TWBR = 5; // Ger SCL-frekvens 100 KHz.
 }
 
 static void communication_init(void)
@@ -42,7 +34,6 @@ static void communication_init(void)
 
 void board_init(void)
 {
+	debug_io_init();
 	communication_init();
-	basic_io_test_init();
-	//basic_io_test_init();
 }

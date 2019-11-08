@@ -35,7 +35,6 @@ int main (void)
 
 	board_init();
 	//run_regular_pulse_test(255);
-	i2c_transmit_test(0xBE);
-
-	// Insert application code here, after the board has been initialized.
+	i2c_transmit_test();
+	while (1);
 }

@@ -16,9 +16,13 @@ src\range_finder_api\platform\src\vl53l0x_platform.c
 
 src\range_finder_api\platform\src\vl53l0x_platform_log.c
 
+src\src\accelerator_module.c
+
+src\src\i2c.c
+
+src\src\main.c
+
 src\tests\basic_functionality_tests.c
 
 src\ASF\common\boards\user_board\init.c
-
-src\main.c
 
