@@ -23,7 +23,7 @@ static void i2c_init(void)
 	
 	// Konfigurera SCL-frekvens.
 	TWSR = 0x00; // Prescaler 1 ger grund på 1 MHz, så möjliga klockfrekvenser 3.9 - 1000 KHz (400 KHz max enl. protokoll).
-	TWBR = 5; // Ger SCL-frekvens 100 KHz.
+	TWBR = 50; // Ger SCL-frekvens 10 KHz.
 }
 
 static void communication_init(void)
