@@ -17,7 +17,7 @@ void run_regular_pulse_test(const uint8_t count_to)
 	}
 }
 
-void i2c_transmit_test(void)
+void accelerator_communication_test(void)
 {
 	accelerator_init();
 	uint8_t sensor_values[6];
@@ -27,10 +27,6 @@ void i2c_transmit_test(void)
 		{
 			accelerator_get_linear_acceleration(sensor_values);
 			PORTA = sensor_values[1];
-		}
-		else
-		{
-			PORTA = 0xAB;
 		}
 	}
 }
