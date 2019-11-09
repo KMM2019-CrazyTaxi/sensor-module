@@ -51,6 +51,8 @@ extern "C" {
  *  @{
  */
 
+#define VL53L0X_COMMS_I2C 1
+
 /**
  * @struct  VL53L0X_Dev_t
  * @brief    Generic PAL device type that does link between API and platform abstraction layer

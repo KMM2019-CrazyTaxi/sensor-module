@@ -12,6 +12,7 @@
 #include <asf.h>
 #include <stdint.h>
 #include "accelerator_module.h"
+#include "vl53l0x_api.h"
 
 /*
  * Counts from 0 (inclusive) to count_to (non-inclusive) repeatedly on port A.
@@ -27,5 +28,7 @@ void run_regular_pulse_test(const uint8_t count_to);
  * Assumes: Port A has been configure as output port.
  */
 void accelerator_communication_test(void);
+
+void range_finder_communication_test(void);
 
 #endif /* BASIC_IO_TEST_H_ */

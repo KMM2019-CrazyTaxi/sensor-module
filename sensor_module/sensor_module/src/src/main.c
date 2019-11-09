@@ -35,6 +35,6 @@ int main (void)
 
 	board_init();
 	//run_regular_pulse_test(255);
-	i2c_transmit_test();
+	range_finder_communication_test();
 	while (1);
 }

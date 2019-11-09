@@ -370,6 +370,10 @@ VL53L0X_Error VL53L0X_DataInit(VL53L0X_DEV Dev)
 	VL53L0X_DeviceParameters_t CurrentParameters;
 	int i;
 	uint8_t StopVariable;
+	
+	Dev->I2cDevAddr = 0x52;
+	Dev->comms_type = VL53L0X_COMMS_I2C;
+	Dev->comms_speed_khz = 100;
 
 	LOG_FUNCTION_START("");
 
