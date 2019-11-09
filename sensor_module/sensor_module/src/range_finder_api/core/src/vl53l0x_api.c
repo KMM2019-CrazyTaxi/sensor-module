@@ -370,10 +370,6 @@ VL53L0X_Error VL53L0X_DataInit(VL53L0X_DEV Dev)
 	VL53L0X_DeviceParameters_t CurrentParameters;
 	int i;
 	uint8_t StopVariable;
-	
-	Dev->I2cDevAddr = 0x52;
-	Dev->comms_type = VL53L0X_COMMS_I2C;
-	Dev->comms_speed_khz = 100;
 
 	LOG_FUNCTION_START("");
 
@@ -457,6 +453,7 @@ VL53L0X_Error VL53L0X_DataInit(VL53L0X_DEV Dev)
 		Status = VL53L0X_SetLimitCheckEnable(Dev,
 			VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD, 0);
 
+/*
 	if (Status == VL53L0X_ERROR_NONE)
 		Status = VL53L0X_SetLimitCheckEnable(Dev,
 			VL53L0X_CHECKENABLE_SIGNAL_RATE_MSRC, 0);
@@ -464,7 +461,7 @@ VL53L0X_Error VL53L0X_DataInit(VL53L0X_DEV Dev)
 	if (Status == VL53L0X_ERROR_NONE)
 		Status = VL53L0X_SetLimitCheckEnable(Dev,
 			VL53L0X_CHECKENABLE_SIGNAL_RATE_PRE_RANGE, 0);
-
+*/
 	/* Limit default values */
 	if (Status == VL53L0X_ERROR_NONE) {
 		Status = VL53L0X_SetLimitCheckValue(Dev,
