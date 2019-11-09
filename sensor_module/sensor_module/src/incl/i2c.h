@@ -12,6 +12,18 @@
 #include <asf.h>
 #include <stdint.h>
 
+#define I2C_STATUS_START 0x08
+#define I2C_STATUS_REPEATED_START 0x10
+#define I2C_STATUS_SLA_W_ACK 0x18
+#define I2C_STATUS_SLA_W_NACK 0x20
+#define I2C_STATUS_DATA_TRANS_ACK 0x28
+#define I2C_STATUS_DATA_TRANS_NACK 0x30
+#define I2C_STATUS_ARBIT_LOST 0x38
+#define I2C_STATUS_SLA_R_ACK 0x40
+#define I2C_STATUS_SLA_R_NACK 0x48
+#define I2C_STATUS_DATA_REC_ACK 0x50
+#define I2C_STATUS_DATA_REC_NACK 0x58
+
 /*
  * Sends a start bit on the I2C bus.
  *
