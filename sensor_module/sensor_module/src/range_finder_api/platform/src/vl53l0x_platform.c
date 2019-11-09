@@ -60,7 +60,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *    Per Device potentially dynamic allocated. Requires VL6180x_GetI2cBuffer() to be implemented.
  * @ingroup Configuration
  */
-#define I2C_BUFFER_CONFIG 1
+#define I2C_BUFFER_CONFIG 0
 /** Maximum buffer size to be used in i2c */
 #define VL53L0X_MAX_I2C_XFER_SIZE   64 /* Maximum buffer size to be used in i2c */
 
@@ -170,8 +170,8 @@ VL53L0X_Error VL53L0X_ReadMulti(VL53L0X_DEV Dev, uint8_t index, uint8_t *pdata, 
 	
 	if (error == VL53L0X_ERROR_NONE)
 	{
-		status = i2c_send_start_bit();
-		error = (status == I2C_STATUS_REPEATED_START ? VL53L0X_ERROR_NONE : VL53L0X_ERROR_CONTROL_INTERFACE);
+		status = i2c_send_stop_start_bit();
+		error = (status == I2C_STATUS_START ? VL53L0X_ERROR_NONE : VL53L0X_ERROR_CONTROL_INTERFACE);
 	}
 	
 	if (error == VL53L0X_ERROR_NONE)
@@ -228,16 +228,19 @@ VL53L0X_Error VL53L0X_WrByte(VL53L0X_DEV Dev, uint8_t index, uint8_t data){
 	}
 	
 	i2c_send_stop_bit();
-
     return error;
 }
 
 VL53L0X_Error VL53L0X_WrWord(VL53L0X_DEV Dev, uint8_t index, uint16_t data){
-	return VL53L0X_WriteMulti(Dev, index, (uint8_t*) &data, 2);
+	return VL53L0X_WrByte(Dev, index, (data >> 8) & 0xFF)
+			| VL53L0X_WrByte(Dev, index + 1, data & 0xFF);
 }
 
 VL53L0X_Error VL53L0X_WrDWord(VL53L0X_DEV Dev, uint8_t index, uint32_t data){
-	return VL53L0X_WriteMulti(Dev, index, (uint8_t*) &data, 4);
+	return VL53L0X_WrByte(Dev, index, (data >> 24) & 0xFF)
+			| VL53L0X_WrByte(Dev, index + 1, (data >> 16) & 0xFF)
+			| VL53L0X_WrByte(Dev, index + 2, (data >> 8) & 0xFF)
+			| VL53L0X_WrByte(Dev, index + 3, data & 0xFF);
 }
 
 VL53L0X_Error VL53L0X_UpdateByte(VL53L0X_DEV Dev, uint8_t index, uint8_t AndData, uint8_t OrData){
@@ -279,7 +282,7 @@ VL53L0X_Error VL53L0X_RdByte(VL53L0X_DEV Dev, uint8_t index, uint8_t *data){
 
 	if (error == VL53L0X_ERROR_NONE)
 	{
-		i2c_send_start_bit();
+		i2c_send_stop_start_bit();
 		error = (status == I2C_STATUS_START ? VL53L0X_ERROR_NONE : VL53L0X_ERROR_CONTROL_INTERFACE);
 	}
 
@@ -299,12 +302,18 @@ VL53L0X_Error VL53L0X_RdByte(VL53L0X_DEV Dev, uint8_t index, uint8_t *data){
     return error;
 }
 
-VL53L0X_Error VL53L0X_RdWord(VL53L0X_DEV Dev, uint8_t index, uint16_t *data){
-	return VL53L0X_ReadMulti(Dev, index, (uint8_t*) data, 2);
+VL53L0X_Error VL53L0X_RdWord(VL53L0X_DEV Dev, uint8_t index, uint16_t *data) {
+	uint8_t* byte_ptr = (uint8_t*) data;
+	return VL53L0X_RdByte(Dev, index, byte_ptr + 1)
+			| VL53L0X_RdByte(Dev, index + 1, byte_ptr);
 }
 
 VL53L0X_Error  VL53L0X_RdDWord(VL53L0X_DEV Dev, uint8_t index, uint32_t *data){
-	return VL53L0X_ReadMulti(Dev, index, (uint8_t*) data, 4);
+	uint8_t* byte_ptr = (uint8_t*) data;
+	return VL53L0X_RdByte(Dev, index, byte_ptr + 3)
+		| VL53L0X_RdByte(Dev, index + 1, byte_ptr + 2)
+		| VL53L0X_RdByte(Dev, index + 2, byte_ptr + 1)
+		| VL53L0X_RdByte(Dev, index + 3, byte_ptr);
 }
 
 #define VL53L0X_POLLINGDELAY_LOOPNB  250
