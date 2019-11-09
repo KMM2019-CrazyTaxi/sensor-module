@@ -22,6 +22,14 @@ uint8_t i2c_send_start_bit(void)
 void i2c_send_stop_bit(void)
 {
 	TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
+	for (uint32_t i = 1; i < 1000; ++i);
+}
+
+uint8_t i2c_send_stop_start_bit(void)
+{
+	TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWSTA) | (1 << TWEN);
+	return i2c_wait_for_ack();
+	for (uint32_t i = 1; i < 1000; ++i);
 }
 
 uint8_t i2c_send_data(const uint8_t data)

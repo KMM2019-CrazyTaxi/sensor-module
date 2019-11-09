@@ -40,6 +40,13 @@ uint8_t i2c_send_start_bit(void);
 void i2c_send_stop_bit(void);
 
 /*
+ * Sends a stop bit immediately followed by a start bit on the I2C bus.
+ *
+ * Assumes: All I2C registers except TWCR has been configured.
+ */
+uint8_t i2c_send_stop_start_bit(void);
+
+/*
  * Sends a data byte on the I2C bus.
  *
  * data: The data to transmit.
