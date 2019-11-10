@@ -13,6 +13,7 @@
 #include <stdint.h>
 
 #include "accelerator_module.h"
+#include "range_finder_module.h"
 #include "vl53l0x_api.h"
 #include "i2c.h"
 #include "utilities.h"
