@@ -138,6 +138,7 @@ VL53L0X_Error VL53L0X_WriteMulti(VL53L0X_DEV Dev, uint8_t index, uint8_t *pdata,
 	}
 	
 	i2c_send_stop_bit();
+	utilities_busy_wait_ms(1);
 	return error;
 }
 
@@ -196,6 +197,7 @@ VL53L0X_Error VL53L0X_ReadMulti(VL53L0X_DEV Dev, uint8_t index, uint8_t *pdata, 
 	}
 	
 	i2c_send_stop_bit();
+	utilities_busy_wait_ms(1);
 	return error;
 }
 
@@ -228,6 +230,7 @@ VL53L0X_Error VL53L0X_WrByte(VL53L0X_DEV Dev, uint8_t index, uint8_t data){
 	}
 	
 	i2c_send_stop_bit();
+	utilities_busy_wait_ms(1);
     return error;
 }
 
@@ -299,6 +302,7 @@ VL53L0X_Error VL53L0X_RdByte(VL53L0X_DEV Dev, uint8_t index, uint8_t *data){
 	}
 
 	i2c_send_stop_bit();
+	utilities_busy_wait_ms(1);
     return error;
 }
 

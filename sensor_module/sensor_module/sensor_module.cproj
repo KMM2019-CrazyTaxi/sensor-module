@@ -237,6 +237,9 @@
     <Compile Include="src\incl\i2c.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\incl\range_finder_module.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\incl\utilities.h">
       <SubType>compile</SubType>
     </Compile>
@@ -307,6 +310,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\src\main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\src\range_finder_module.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\src\utilities.c">

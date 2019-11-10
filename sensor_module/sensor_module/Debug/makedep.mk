@@ -22,6 +22,8 @@ src\src\i2c.c
 
 src\src\main.c
 
+src\src\range_finder_module.c
+
 src\src\utilities.c
 
 src\tests\basic_functionality_tests.c

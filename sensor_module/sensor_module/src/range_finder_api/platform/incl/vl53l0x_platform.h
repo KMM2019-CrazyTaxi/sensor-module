@@ -34,6 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "vl53l0x_platform_log.h"
 #include "vl53l0x_i2c_platform.h"
 #include "i2c.h"
+#include "utilities.h"
 
 #ifdef __cplusplus
 extern "C" {
