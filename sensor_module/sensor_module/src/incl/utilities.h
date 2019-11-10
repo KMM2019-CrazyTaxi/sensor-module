@@ -36,4 +36,13 @@ void utilities_busy_wait_s(const uint8_t s);
  */
 void utilities_debug_output(const uint8_t* data, const uint8_t n_bytes);
 
+/*
+ * Outputs an error code to port A and blocks indefinitely.
+ *
+ * error_code: The code to output on port A.
+ *
+ * Assumes: PORTA has been configured as output.
+ */
+void utilities_error(const uint8_t error_code);
+
 #endif /* UTILITIES_H_ */

@@ -39,3 +39,9 @@ void utilities_debug_output(const uint8_t* data, const uint8_t n_bytes)
 		utilities_busy_wait_ms(1);
 	}
 }
+
+void utilities_error(const uint8_t error_code)
+{
+	PORTA = error_code;
+	while (1);
+}
