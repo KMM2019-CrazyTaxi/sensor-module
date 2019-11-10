@@ -14,7 +14,6 @@ VL53L0X_Error range_finder_init(void)
 	VL53L0X_Error status;
 	uint32_t refSpadCount;
 	uint8_t isApertureSpads, VhvSettings, PhaseCal;
-	VL53L0X_RangingMeasurementData_t ranging_data;
 		
 	dev.I2cDevAddr = 0x52;
 	dev.comms_type = VL53L0X_COMMS_I2C;
