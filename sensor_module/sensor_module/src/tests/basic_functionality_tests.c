@@ -132,3 +132,9 @@ void range_finder_communication_test(void)
 		PORTA = ranging_data.RangeMilliMeter >> 3;
 	}
 }
+
+void debug_output_test(void)
+{
+	uint32_t data = 0xABCDEF12;
+	utilities_debug_output((uint8_t*) &data, 4);
+}

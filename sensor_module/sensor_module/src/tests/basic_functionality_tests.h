@@ -11,9 +11,11 @@
 
 #include <asf.h>
 #include <stdint.h>
+
 #include "accelerator_module.h"
 #include "vl53l0x_api.h"
 #include "i2c.h"
+#include "utilities.h"
 
 /*
  * Counts from 0 (inclusive) to count_to (non-inclusive) repeatedly on port A.
@@ -39,5 +41,13 @@ void accelerator_communication_test(void);
  *          I2C has been configured.
  */
 void range_finder_communication_test(void);
+
+/*
+ * Tests the debug output function by outputting 0xABCDEF12 to port a. Note that
+ * the output is little endian.
+ *
+ * Assumes: Porta A has been configured as output port.
+ */
+void debug_output_test(void);
 
 #endif /* BASIC_IO_TEST_H_ */
