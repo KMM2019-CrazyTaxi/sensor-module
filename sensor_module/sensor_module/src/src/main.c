@@ -28,13 +28,13 @@
 #include <asf.h>
 
 #include "tests/basic_functionality_tests.h"
+#include "utilities.h"
 
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-	//run_regular_pulse_test(255);
-	range_finder_communication_test();
+	debug_output_test();
 	while (1);
 }

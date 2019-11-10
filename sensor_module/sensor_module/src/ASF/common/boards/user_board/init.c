@@ -12,7 +12,7 @@
 static void debug_io_init(void)
 {
 	// Initiera io-portar.
-	DDRA = 0x00; // Alla pinnar på A är input.
+	DDRA = 0x00; // Alla pinnar på A är output.
 	__asm__ __volatile__ ("nop");
 }
 

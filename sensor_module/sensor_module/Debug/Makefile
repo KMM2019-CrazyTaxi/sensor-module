@@ -70,6 +70,7 @@ C_SRCS +=  \
 ../src/src/accelerator_module.c \
 ../src/src/i2c.c \
 ../src/src/main.c \
+../src/src/utilities.c \
 ../src/tests/basic_functionality_tests.c \
 ../src/ASF/common/boards/user_board/init.c
 
@@ -91,6 +92,7 @@ src/range_finder_api/platform/src/vl53l0x_platform_log.o \
 src/src/accelerator_module.o \
 src/src/i2c.o \
 src/src/main.o \
+src/src/utilities.o \
 src/tests/basic_functionality_tests.o \
 src/ASF/common/boards/user_board/init.o
 
@@ -105,6 +107,7 @@ src/range_finder_api/platform/src/vl53l0x_platform_log.o \
 src/src/accelerator_module.o \
 src/src/i2c.o \
 src/src/main.o \
+src/src/utilities.o \
 src/tests/basic_functionality_tests.o \
 src/ASF/common/boards/user_board/init.o
 
@@ -119,6 +122,7 @@ src/range_finder_api/platform/src/vl53l0x_platform_log.d \
 src/src/accelerator_module.d \
 src/src/i2c.d \
 src/src/main.d \
+src/src/utilities.d \
 src/tests/basic_functionality_tests.d \
 src/ASF/common/boards/user_board/init.d
 
@@ -133,6 +137,7 @@ src/range_finder_api/platform/src/vl53l0x_platform_log.d \
 src/src/accelerator_module.d \
 src/src/i2c.d \
 src/src/main.d \
+src/src/utilities.d \
 src/tests/basic_functionality_tests.d \
 src/ASF/common/boards/user_board/init.d
 
@@ -150,6 +155,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
