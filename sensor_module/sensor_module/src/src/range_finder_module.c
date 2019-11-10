@@ -18,7 +18,7 @@ VL53L0X_Error range_finder_init(void)
 		
 	dev.I2cDevAddr = 0x52;
 	dev.comms_type = VL53L0X_COMMS_I2C;
-	dev.comms_speed_khz = 10;
+	dev.comms_speed_khz = 250;
 		
 	status = VL53L0X_DataInit(&dev);
 	if (status != VL53L0X_ERROR_NONE) return status;
