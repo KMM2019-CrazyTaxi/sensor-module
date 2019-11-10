@@ -35,6 +35,6 @@ int main (void)
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-	range_finder_communication_test();
+	combined_range_accelerator_test();
 	while (1);
 }

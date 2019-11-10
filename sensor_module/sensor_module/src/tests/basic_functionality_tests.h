@@ -44,6 +44,15 @@ void accelerator_communication_test(void);
 void range_finder_communication_test(void);
 
 /*
+ * Combined test of range finder and accelerator. This test configures both sensors
+ * and alternates between polling them. Sensor data it outputted to port a.
+ *
+ * Assumes: Porta A has been configured as output port.
+ *          I2C has been configured.
+ */
+void combined_range_accelerator_test(void);
+
+/*
  * Tests the debug output function by outputting 0xABCDEF12 to port a. Note that
  * the output is little endian.
  *
