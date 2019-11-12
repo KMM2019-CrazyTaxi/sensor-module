@@ -9,10 +9,11 @@
 #include <board.h>
 #include <conf_board.h>
 
-static void debug_io_init(void)
+static void io_pin_init(void)
 {
 	// Initiera io-portar.
-	DDRA = 0x00; // Alla pinnar på A är output.
+	DDRA = 0xFF; // Alla pinnar på A är output.
+	DDRB = 0x01; // PB0 är output for SHTDWN på range finder.
 	__asm__ __volatile__ ("nop");
 }
 
@@ -34,6 +35,6 @@ static void communication_init(void)
 
 void board_init(void)
 {
-	debug_io_init();
+	io_pin_init();
 	communication_init();
 }
