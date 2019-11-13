@@ -7,6 +7,8 @@
 
 #include "range_finder_module.h"
 
+#define RANGE_FINDER_BOOT_TIME_MS 2
+
 static VL53L0X_Dev_t dev;
 
 VL53L0X_Error range_finder_init(void)
@@ -18,6 +20,12 @@ VL53L0X_Error range_finder_init(void)
 	dev.I2cDevAddr = 0x52;
 	dev.comms_type = VL53L0X_COMMS_I2C;
 	dev.comms_speed_khz = 250;
+	
+	// Restart range finder.
+	PORTB &= 0xFE;
+	utilities_busy_wait_ms(RANGE_FINDER_BOOT_TIME_MS);
+	PORTB |= 0x01;
+	utilities_busy_wait_ms(RANGE_FINDER_BOOT_TIME_MS);
 		
 	status = VL53L0X_DataInit(&dev);
 	if (status != VL53L0X_ERROR_NONE) return status;
