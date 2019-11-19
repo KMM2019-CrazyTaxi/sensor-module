@@ -26,15 +26,28 @@
  * Atmel Software Framework (ASF).
  */
 #include <asf.h>
+#include <stdint.h>
 
 #include "tests/basic_functionality_tests.h"
 #include "utilities.h"
+#include "spi.h"
 
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-	range_finder_communication_test();
-	while (1);
+
+	uint8_t spi_ready = 0;
+	uint8_t spi_read;
+	
+	while (1) {
+		spi_ready = 0;
+		while (spi_ready == 0) {
+			spi_read = spi_transcieve(SPI_ACK);
+			spi_ready = spi_read == SPI_START;
+			
+			//PORTA = spi_read;
+		}
+	}
 }

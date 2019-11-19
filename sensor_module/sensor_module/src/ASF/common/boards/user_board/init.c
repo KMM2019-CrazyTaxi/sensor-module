@@ -9,6 +9,8 @@
 #include <board.h>
 #include <conf_board.h>
 
+#include "spi.h"
+
 static void io_pin_init(void)
 {
 	// Initiera io-portar.
@@ -27,14 +29,23 @@ static void i2c_init(void)
 	TWBR = 2; // Grundfrekvensen delas med 2*TWBR.
 }
 
-static void communication_init(void)
+/*
+ * Initiates the ATmega as a slave for SPI communication.
+ */
+static void spi_slave_init(void) 
 {
-	i2c_init();
-	// TODO Initialize SPI control registers.
+	/* Set MISO output, all others input */
+	DDR_SPI |= (1<<DD_MISO);
+	//DDR_SPI &= ~((1<<DD_MOSI) | (1<<DD_SS) | (1<<DD_SCK));
+	
+	/* Enable SPI */
+	SPCR = (1<<SPE);
+	PORTA = 0xFF;
 }
 
 void board_init(void)
 {
 	io_pin_init();
-	communication_init();
+	i2c_init();
+	spi_slave_init();
 }
