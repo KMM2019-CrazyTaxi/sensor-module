@@ -30,24 +30,21 @@
 
 #include "tests/basic_functionality_tests.h"
 #include "utilities.h"
-#include "spi.h"
+#include "intercomm.h"
 
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-
-	uint8_t spi_ready = 0;
-	uint8_t spi_read;
+	sei();
+	enable_intercomm();
+	
+	PORTA = 0x02;
 	
 	while (1) {
-		spi_ready = 0;
-		while (spi_ready == 0) {
-			spi_read = spi_transcieve(SPI_ACK);
-			spi_ready = spi_read == SPI_START;
-			
-			//PORTA = spi_read;
-		}
+		//
 	}
+	
+	return 0;
 }
