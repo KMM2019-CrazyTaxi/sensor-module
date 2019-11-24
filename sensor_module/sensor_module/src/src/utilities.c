@@ -11,9 +11,9 @@ void utilities_busy_wait_ms(const uint8_t ms)
 {
 	for (uint8_t ms_waited = 0; ms_waited < ms; ++ms_waited) 
 	{
-		for (uint8_t i = 0; i < 2; ++i)
+		for (uint8_t i = 0; i < 32; ++i)
 		{
-			for (uint8_t j = 0; j < 121; ++j)
+			for (uint8_t j = 0; j < 126; ++j)
 			{
 				__asm__ __volatile__ ("nop");
 			}
