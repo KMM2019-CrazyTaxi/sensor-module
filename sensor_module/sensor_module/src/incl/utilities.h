@@ -38,11 +38,20 @@ void utilities_debug_output(const uint8_t* data, const uint8_t n_bytes);
 
 /*
  * Outputs an error code to port A and blocks indefinitely.
+ * Disables interrupts.
  *
  * error_code: The code to output on port A.
  *
  * Assumes: PORTA has been configured as output.
  */
 void utilities_error(const uint8_t error_code);
+
+
+
+/* Definition of error code constants */
+
+#define UNDEFINED_SENSOR_DATA_ID_ON_WRITE 0x30
+#define UNDEFINED_SENSOR_DATA_ID_ON_READ 0x31
+#define UNDEFINED_SENSOR_DATA_ID_ON_READ_ALL 0x32
 
 #endif /* UTILITIES_H_ */
