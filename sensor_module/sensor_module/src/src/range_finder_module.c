@@ -64,8 +64,6 @@ VL53L0X_Error range_finder_init(void)
 	f *= i;
 	status = VL53L0X_SetLimitCheckValue(&dev, VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD, f);
 	
-	// TODO Enable interrupt on appropriate port
-	
 	return status;
 }
 
@@ -79,12 +77,6 @@ VL53L0X_Error start_continuous_meassurement(void)
 	status = VL53L0X_StartMeasurement(&dev);
 	if (status != VL53L0X_ERROR_NONE) return status;
 		
-	// Enable INT2 interrupt on high signal.
-	EICRA = EICRA | (1 << ISC20) | (1 << ISC21);
-	EIMSK = EIMSK | (1 << INT2);
-	DDRB = DDRB & ~(1 << 2);
-	PORTB = PORTB | (1 << PORTB2);
-	MCUCR = MCUCR & ~(1 << PUD);
 	sei();
 	
 	return status;

@@ -40,8 +40,8 @@ int main (void)
 	range_finder_init();
 	start_continuous_meassurement();
 	
-	sei();
 	enable_intercomm();
+	sei();
 	
 	return 0;
 }

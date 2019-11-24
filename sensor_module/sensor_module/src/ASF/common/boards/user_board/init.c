@@ -19,6 +19,18 @@ static void io_pin_init(void)
 	__asm__ __volatile__ ("nop");
 }
 
+static void interrupt_init(void)
+{
+	// Ensure global pullup isn't disabled.
+	MCUCR = MCUCR & ~(1 << PUD);
+	
+	// Enable INT2 interrupt on high signal for range finder.
+	EICRA = EICRA | (1 << ISC20) | (1 << ISC21);
+	EIMSK = EIMSK | (1 << INT2);
+	DDRB = DDRB & ~(1 << 2);
+	PORTB = PORTB | (1 << PORTB2);
+}
+
 static void i2c_init(void)
 {
 	// Sätt på ström till TWI-krets.
@@ -47,4 +59,5 @@ void board_init(void)
 	io_pin_init();
 	i2c_init();
 	spi_slave_init();
+	interrupt_init();
 }
