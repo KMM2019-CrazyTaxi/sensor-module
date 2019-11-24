@@ -27,10 +27,13 @@
  */
 #include <asf.h>
 #include <stdint.h>
+#define F_CPU 16000000UL // 16 MHz
 
 #include "tests/basic_functionality_tests.h"
 #include "utilities.h"
 #include "intercomm.h"
+
+#include "sensor_data.h"
 
 int main (void)
 {
@@ -42,8 +45,18 @@ int main (void)
 	
 	PORTA = 0x02;
 	
+	uint8_t range_data = 0x10;
+	uint8_t* read_range_data;
+		
 	while (1) {
-		PORTA = 0xFF;
+		for (uint8_t i = 0; i < 0xFF; i++) {
+				write_new_sensor_data(RANGE_DATA_ID, &range_data);
+				read_range_data = get_most_recent_sensor_data(RANGE_DATA_ID);
+				PORTA = *read_range_data;
+				utilities_busy_wait_ms(100);
+				
+				range_data += 0x10;
+		}
 	}
 	
 	return 0;
