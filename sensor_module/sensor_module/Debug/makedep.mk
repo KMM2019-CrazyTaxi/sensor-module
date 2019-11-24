@@ -26,6 +26,8 @@ src\src\main.c
 
 src\src\range_finder_module.c
 
+src\src\sensor_data.c
+
 src\src\spi.c
 
 src\src\utilities.c

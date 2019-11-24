@@ -8,6 +8,7 @@
 #include "accelerator_module.h"
 #include "utilities.h"
 #include "interrupt.h"
+#include "sensor_data.h"
 
 void accelerator_init(void)
 {
@@ -65,7 +66,7 @@ ISR(TIMER0_COMPA_vect)
 {
 	uint8_t data[6];
 	accelerator_get_linear_acceleration(data);
-	//utilities_debug_output(data, 2);
+	write_new_sensor_data(ACCELEROMETER_DATA_ID, data);
 	
 	// TODO Put data in correct place.
 }

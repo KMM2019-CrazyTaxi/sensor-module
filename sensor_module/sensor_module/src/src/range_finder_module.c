@@ -7,6 +7,8 @@
 
 #include "interrupt.h"
 #include "range_finder_module.h"
+#include "sensor_data.h"
+#include "string.h"
 
 #define RANGE_FINDER_BOOT_TIME_MS 2
 
@@ -117,11 +119,12 @@ ISR(INT2_vect)
 	
 	VL53L0X_Error status;
 	VL53L0X_RangingMeasurementData_t data;
+	uint8_t adjusted_data;
 	
 	status = VL53L0X_GetRangingMeasurementData(&dev, &data);
+	adjusted_data = (uint8_t) (data.RangeMilliMeter >> 3);
 	
-	// TODO Write data to appropriate place.
-	utilities_debug_output((uint8_t*) &data.RangeMilliMeter, 1);
+	write_new_sensor_data(RANGE_DATA_ID, &adjusted_data);
 	
 	status = VL53L0X_ClearInterruptMask(&dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY);
 }
