@@ -37,9 +37,9 @@ int main (void)
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-	//range_finder_init();
-	//start_continuous_meassurement();
+	range_finder_init();
 	accelerator_init();
+	start_continuous_meassurement();
 	
 	//enable_intercomm();
 	sei();

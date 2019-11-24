@@ -65,7 +65,7 @@ ISR(TIMER0_COMPA_vect)
 {
 	uint8_t data[6];
 	accelerator_get_linear_acceleration(data);
-	utilities_debug_output(data, 2);
+	//utilities_debug_output(data, 2);
 	
 	// TODO Put data in correct place.
 }

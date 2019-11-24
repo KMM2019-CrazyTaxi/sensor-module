@@ -121,6 +121,7 @@ ISR(INT2_vect)
 	status = VL53L0X_GetRangingMeasurementData(&dev, &data);
 	
 	// TODO Write data to appropriate place.
+	utilities_debug_output((uint8_t*) &data.RangeMilliMeter, 1);
 	
 	status = VL53L0X_ClearInterruptMask(&dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY);
 }
