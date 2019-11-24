@@ -26,15 +26,25 @@
  * Atmel Software Framework (ASF).
  */
 #include <asf.h>
+#include <stdint.h>
 
 #include "tests/basic_functionality_tests.h"
 #include "utilities.h"
+#include "intercomm.h"
 
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-	range_finder_communication_test();
-	while (1);
+	sei();
+	enable_intercomm();
+	
+	PORTA = 0x02;
+	
+	while (1) {
+		PORTA = 0xFF;
+	}
+	
+	return 0;
 }
