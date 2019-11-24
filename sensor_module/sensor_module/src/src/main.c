@@ -26,9 +26,11 @@
  * Atmel Software Framework (ASF).
  */
 #include <asf.h>
+#include <stdint.h>
 
 #include "tests/basic_functionality_tests.h"
 #include "utilities.h"
+#include "intercomm.h"
 
 int main (void)
 {
@@ -38,5 +40,8 @@ int main (void)
 	range_finder_init();
 	start_continuous_meassurement();
 	
-	while (1);
+	sei();
+	enable_intercomm();
+	
+	return 0;
 }
