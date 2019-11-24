@@ -43,7 +43,7 @@ int main (void)
 	PORTA = 0x02;
 	
 	while (1) {
-		//
+		PORTA = 0xFF;
 	}
 	
 	return 0;
