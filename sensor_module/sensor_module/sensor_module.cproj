@@ -237,7 +237,13 @@
     <Compile Include="src\incl\i2c.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\incl\intercomm.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\incl\range_finder_module.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\incl\spi.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\incl\utilities.h">
@@ -309,10 +315,16 @@
     <Compile Include="src\src\i2c.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\src\intercomm.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\src\main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\src\range_finder_module.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\src\spi.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\src\utilities.c">

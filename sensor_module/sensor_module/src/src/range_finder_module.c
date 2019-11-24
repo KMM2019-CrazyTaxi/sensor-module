@@ -39,14 +39,11 @@ VL53L0X_Error range_finder_init(void)
 		
 	status = VL53L0X_PerformRefCalibration(&dev, &VhvSettings, &PhaseCal);
 	if (status != VL53L0X_ERROR_NONE) return status;
-		
-	status = VL53L0X_SetDeviceMode(&dev, VL53L0X_DEVICEMODE_CONTINUOUS_TIMED_RANGING);
+	
+	status = VL53L0X_SetMeasurementTimingBudgetMicroSeconds(&dev, RANGE_FINDER_TIMING_BUDGET_MS * 1000);
 	if (status != VL53L0X_ERROR_NONE) return status;
 	
-	status = VL53L0X_SetMeasurementTimingBudgetMicroSeconds(&dev, 30000);
-	if (status != VL53L0X_ERROR_NONE) return status;
-	
-	status = VL53L0X_SetInterMeasurementPeriodMilliSeconds(&dev, 3);
+	status = VL53L0X_SetInterMeasurementPeriodMilliSeconds(&dev, RANGE_FINDER_BETWEEN_MEASSUREMENT_TIME_MS);
 	if (status != VL53L0X_ERROR_NONE) return status;	
 			
 	status = VL53L0X_SetLimitCheckEnable(&dev, VL53L0X_CHECKENABLE_SIGMA_FINAL_RANGE, 1);
@@ -67,17 +64,25 @@ VL53L0X_Error range_finder_init(void)
 	return status;
 }
 
+VL53L0X_Error range_finder_get_single_meassurement(VL53L0X_RangingMeasurementData_t* range_data)
+{
+	return VL53L0X_PerformSingleRangingMeasurement(&dev, range_data);
+}
+
 VL53L0X_Error start_continuous_meassurement(void)
 {
 	VL53L0X_Error status;
 	
-	status = VL53L0X_SetGpioConfig(&dev, 0, VL53L0X_DEVICEMODE_CONTINUOUS_TIMED_RANGING, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY, VL53L0X_INTERRUPTPOLARITY_HIGH);
-	if (status != VL53L0X_ERROR_NONE) utilities_error(status);
+	status = VL53L0X_SetDeviceMode(&dev, VL53L0X_DEVICEMODE_CONTINUOUS_TIMED_RANGING);
+	if (status != VL53L0X_ERROR_NONE) return status;
+	
+	status = VL53L0X_SetGpioConfig(&dev, 0, VL53L0X_DEVICEMODE_CONTINUOUS_TIMED_RANGING, 
+								   VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY, 
+								   VL53L0X_INTERRUPTPOLARITY_HIGH);
+	if (status != VL53L0X_ERROR_NONE) return status;
 	
 	status = VL53L0X_StartMeasurement(&dev);
 	if (status != VL53L0X_ERROR_NONE) return status;
-		
-	sei();
 	
 	return status;
 }

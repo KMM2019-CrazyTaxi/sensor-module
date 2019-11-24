@@ -31,7 +31,6 @@ void accelerator_communication_test(void)
 	}
 }
 
-/*
 void range_finder_communication_test(void)
 {
 	VL53L0X_Error status;
@@ -71,7 +70,6 @@ void combined_range_accelerator_test(void)
 		utilities_debug_output(accelerator_data + 1, 1);
 	}
 }
-*/
 
 void debug_output_test(void)
 {

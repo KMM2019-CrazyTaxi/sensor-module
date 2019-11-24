@@ -41,7 +41,7 @@ void accelerator_communication_test(void);
  * Assumes: Port A has been configured as output port.
  *          I2C has been configured.
  */
-//void range_finder_communication_test(void);
+void range_finder_communication_test(void);
 
 /*
  * Combined test of range finder and accelerator. This test configures both sensors

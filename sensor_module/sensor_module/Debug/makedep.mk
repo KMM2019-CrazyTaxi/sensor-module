@@ -20,9 +20,13 @@ src\src\accelerator_module.c
 
 src\src\i2c.c
 
+src\src\intercomm.c
+
 src\src\main.c
 
 src\src\range_finder_module.c
+
+src\src\spi.c
 
 src\src\utilities.c
 
