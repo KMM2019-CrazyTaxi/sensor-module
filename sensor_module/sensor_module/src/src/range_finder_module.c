@@ -5,6 +5,7 @@
  *  Author: herap603
  */ 
 
+#include "interrupt.h"
 #include "range_finder_module.h"
 
 #define RANGE_FINDER_BOOT_TIME_MS 2
@@ -39,9 +40,15 @@ VL53L0X_Error range_finder_init(void)
 	status = VL53L0X_PerformRefCalibration(&dev, &VhvSettings, &PhaseCal);
 	if (status != VL53L0X_ERROR_NONE) return status;
 		
-	status = VL53L0X_SetDeviceMode(&dev, VL53L0X_DEVICEMODE_SINGLE_RANGING);
+	status = VL53L0X_SetDeviceMode(&dev, VL53L0X_DEVICEMODE_CONTINUOUS_TIMED_RANGING);
 	if (status != VL53L0X_ERROR_NONE) return status;
-		
+	
+	status = VL53L0X_SetMeasurementTimingBudgetMicroSeconds(&dev, 30000);
+	if (status != VL53L0X_ERROR_NONE) return status;
+	
+	status = VL53L0X_SetInterMeasurementPeriodMilliSeconds(&dev, 3);
+	if (status != VL53L0X_ERROR_NONE) return status;	
+			
 	status = VL53L0X_SetLimitCheckEnable(&dev, VL53L0X_CHECKENABLE_SIGMA_FINAL_RANGE, 1);
 	if (status != VL53L0X_ERROR_NONE) return status;
 		
@@ -57,10 +64,67 @@ VL53L0X_Error range_finder_init(void)
 	f *= i;
 	status = VL53L0X_SetLimitCheckValue(&dev, VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD, f);
 	
+	// TODO Enable interrupt on appropriate port
+	
 	return status;
 }
 
-VL53L0X_Error range_finder_get_single_meassurement(VL53L0X_RangingMeasurementData_t* data)
+VL53L0X_Error start_continuous_meassurement(void)
 {
-	return VL53L0X_PerformSingleRangingMeasurement(&dev, data);
+	VL53L0X_Error status;
+	
+	status = VL53L0X_SetGpioConfig(&dev, 0, VL53L0X_DEVICEMODE_CONTINUOUS_TIMED_RANGING, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY, VL53L0X_INTERRUPTPOLARITY_HIGH);
+	if (status != VL53L0X_ERROR_NONE) utilities_error(status);
+	
+	status = VL53L0X_StartMeasurement(&dev);
+	if (status != VL53L0X_ERROR_NONE) return status;
+		
+	// Enable INT2 interrupt on high signal.
+	EICRA = EICRA | (1 << ISC20) | (1 << ISC21);
+	EIMSK = EIMSK | (1 << INT2);
+	DDRB = DDRB & ~(1 << 2);
+	PORTB = PORTB | (1 << PORTB2);
+	MCUCR = MCUCR & ~(1 << PUD);
+	sei();
+	
+	return status;
+}
+
+VL53L0X_Error stop_continuous_meassurement(void)
+{
+	VL53L0X_Error status;
+	uint32_t has_stopped = 0;
+	VL53L0X_RangingMeasurementData_t data;
+	
+	status = VL53L0X_StopMeasurement(&dev);
+	if (status != VL53L0X_ERROR_NONE) return status;
+	
+	while (!has_stopped) 
+	{
+		status = VL53L0X_GetStopCompletedStatus(&dev, &has_stopped);
+		if (status != VL53L0X_ERROR_NONE) return status;	
+	}
+	
+	status = VL53L0X_GetRangingMeasurementData(&dev, &data);
+	if (status != VL53L0X_ERROR_NONE) return status;
+	
+	status = VL53L0X_ClearInterruptMask(&dev, 0);
+	if (status != VL53L0X_ERROR_NONE) return status;
+	
+	return status;
+}
+
+ISR(INT2_vect)
+{
+	// TODO Error handling.
+	
+	VL53L0X_Error status;
+	VL53L0X_RangingMeasurementData_t data;
+	
+	status = VL53L0X_GetRangingMeasurementData(&dev, &data);
+	
+	// TODO Write data to appropriate place.
+	utilities_debug_output((uint8_t*) &data.RangeMilliMeter, 2);
+	
+	status = VL53L0X_ClearInterruptMask(&dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY);
 }

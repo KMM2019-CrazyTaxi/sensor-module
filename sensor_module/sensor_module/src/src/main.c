@@ -35,6 +35,8 @@ int main (void)
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-	range_finder_communication_test();
+	range_finder_init();
+	start_continuous_meassurement();
+	
 	while (1);
 }
