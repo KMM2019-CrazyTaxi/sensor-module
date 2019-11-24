@@ -41,7 +41,8 @@ void utilities_debug_output(const uint8_t* data, const uint8_t n_bytes)
 }
 
 void utilities_error(const uint8_t error_code)
-{
+{	
+	cli(); // Disable interrupts
 	PORTA = error_code;
 	while (1);
 }
