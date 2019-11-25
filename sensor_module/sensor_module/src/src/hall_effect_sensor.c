@@ -10,6 +10,16 @@
 #include "hall_effect_sensor.h"
 #include "sensor_data.h"
 
+/*
+The speed for each wheel is calculated as this constant divided by the counter
+value during the hall effect interrupt. This constant has been derived using
+speed = movement per interrupt / (counter value / count per second) where
+movement per interrupt = 0.25 dm. count per second is clock speed / prescaler
+i.e. 16 000 000 / 64 = 250 000. The constant is thus 250 000 * 0.25 = 62 500.
+This constant must be recalculated if any of the values used are changed.
+*/
+static const uint16_t counter_to_speed_constant = 62500;
+
 // Indicates if an overflow has occured since last hall effect interrupt.
 static uint8_t cnt_1_overflow = 1;
 static uint8_t cnt_3_overflow = 1;
@@ -39,7 +49,6 @@ ISR(INT0_vect)
 	if (!cnt_1_overflow)
 	{
 		const uint16_t counter_value = TCNT1;
-		const uint16_t counter_to_speed_constant = 62500;
 		speed_right = counter_to_speed_constant / counter_value;
 	}
 	update_speed();
@@ -64,7 +73,6 @@ ISR(INT1_vect)
 	if (!cnt_3_overflow)
 	{
 		const uint16_t counter_value = TCNT3;
-		const uint16_t counter_to_speed_constant = 62500;
 		speed_left = counter_to_speed_constant / counter_value;
 	}
 	update_speed();
