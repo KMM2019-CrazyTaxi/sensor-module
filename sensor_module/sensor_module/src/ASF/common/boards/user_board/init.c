@@ -34,11 +34,23 @@ static void external_interrupt_init(void)
 	// Ensure global pullup isn't disabled.
 	MCUCR = MCUCR & ~(1 << PUD);
 	
+	// Enable INT0 interrupt on low signal for hall effect right
+	EICRA = EICRA | (1 << ISC01);	// Falling edge
+	EIMSK = EIMSK | (1 << INT0);	// Enable INT0
+	DDRD = DDRD & ~(1 << 2);	// Enable input on appropriate pin
+	PORTD = PORTD | (1 << PORTD2);	// Enable pullup
+	
+	// Enable INT1 interrupt on low signal for hall effect left
+	EICRA = EICRA | (1 << ISC11);	// Falling edge
+	EIMSK = EIMSK | (1 << INT1);	// Enable INT1
+	DDRD = DDRD & ~(1 << 3);	// Enable input on appropriate pin
+	PORTD = PORTD | (1 << PORTD3);	// Enable pullup
+	
 	// Enable INT2 interrupt on high signal for range finder.
-	EICRA = EICRA | (1 << ISC20) | (1 << ISC21);
-	EIMSK = EIMSK | (1 << INT2);
-	DDRB = DDRB & ~(1 << 2);
-	PORTB = PORTB | (1 << PORTB2);
+	EICRA = EICRA | (1 << ISC20) | (1 << ISC21);	// Rising edge
+	EIMSK = EIMSK | (1 << INT2);	// Enable INT2
+	DDRB = DDRB & ~(1 << 2);	// Enable input on appropriate pin
+	PORTB = PORTB | (1 << PORTB2);	// Enable pullup
 }
 
 static void i2c_init(void)
