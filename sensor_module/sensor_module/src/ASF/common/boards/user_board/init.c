@@ -21,12 +21,14 @@ static void io_pin_init(void)
 
 static void counter_init(void)
 {
+	/*
 	// Configure counter 0 for accelerator interrupts.
 	PRR0 = PRR0 & ~(1 << PRTIM0);	// Enable COUNT0 circuit.
 	TCCR0A = (0 << COM0A1) | (1 << COM0A0) | (1 << WGM01) | (1 << WGM00);	// Configure output compare and ctc mode.
 	TCCR0B = 0x05;	// Prescaler 1024 on system clock.
 	TIMSK0 = (1 << OCIE0A);	// Enable interrupt on compare.
 	OCR0A = 255;	// An interrupt is generated when counter reaches this value
+	*/
 
 	// Configure counter 1 for hall effect right
 	PRR0 = PRR0 & ~(1 << PRTIM1);	// Enable COUNT1 circuit.
@@ -54,11 +56,13 @@ static void external_interrupt_init(void)
 	DDRD = DDRD & ~(1 << 3);	// Enable input on appropriate pin
 	PORTD = PORTD | (1 << PORTD3);	// Enable pullup
 	
+	/*
 	// Enable INT2 interrupt on high signal for range finder.
 	EICRA = EICRA | (1 << ISC20) | (1 << ISC21);	// Rising edge
 	EIMSK = EIMSK | (1 << INT2);	// Enable INT2
 	DDRB = DDRB & ~(1 << 2);	// Enable input on appropriate pin
 	PORTB = PORTB | (1 << PORTB2);	// Enable pullup
+	*/
 }
 
 static void i2c_init(void)

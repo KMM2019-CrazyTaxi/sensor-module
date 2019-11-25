@@ -5,25 +5,30 @@
  *  Author: herap603
  */
 
-#include "interrupt.h" 
-
-static uint8_t signals_left;
-static uint8_t signals_right;
+#include "interrupt.h"
+#include "hall_effect_sensor.h"
 
 void hall_effect_init(void)
 {
-	signals_left = 0;
-	signals_right = 0;
+	TCNT1 = 0;
+	TCNT3 = 0;
 }
 
 // Right wheel interrupt routine
 ISR(INT0_vect)
 {
-	++signals_right;
+	const uint16_t counter_value = TCNT1;
+	const uint16_t counter_to_speed_constant = 62500;
+	uint8_t dm_per_s = counter_to_speed_constant / counter_value;
+	TCNT1 = 0;
 }
 
 // Left wheel interrupt routine
 ISR(INT1_vect)
 {
-	++signals_left;
+	const uint16_t counter_value = TCNT3;
+	const uint16_t counter_to_speed_constant = 62500;
+	uint8_t dm_per_s = counter_to_speed_constant / counter_value;
+	TCNT3 = 0;
 }
+
