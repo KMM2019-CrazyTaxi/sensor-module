@@ -27,6 +27,14 @@ static void counter_init(void)
 	TCCR0B = 0x05;	// Prescaler 1024 on system clock.
 	TIMSK0 = (1 << OCIE0A);	// Enable interrupt on compare.
 	OCR0A = 255;	// An interrupt is generated when counter reaches this value
+
+	// Configure counter 1 for hall effect right
+	PRR0 = PRR0 & ~(1 << PRTIM1);	// Enable COUNT1 circuit.
+	TCCR1B = 0x03;	// Prescaler 1024 on system clock.
+	
+	// Configure counter 3 for hall effect right
+	PRR0 = PRR0 & ~(1 << PRTIM3);	// Enable COUNT3 circuit.
+	TCCR3B = 0x03;	// Prescaler 1024 on system clock.
 }
 
 static void external_interrupt_init(void)
