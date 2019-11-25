@@ -19,6 +19,28 @@ static void io_pin_init(void)
 	__asm__ __volatile__ ("nop");
 }
 
+static void counter_init(void)
+{
+	// Configure counter 0 for accelerator interrupts.
+	PRR0 = PRR0 & ~(1 << PRTIM0);	// Enable COUNT0 circuit.
+	TCCR0A = (0 << COM0A1) | (1 << COM0A0) | (1 << WGM01) | (1 << WGM00);	// Configure output compare and ctc mode.
+	TCCR0B = 0x05;	// Prescaler 1024 on system clock.
+	TIMSK0 = (1 << OCIE0A);	// Enable interrupt on compare.
+	OCR0A = 255;	// An interrupt is generated when counter reaches this value
+}
+
+static void external_interrupt_init(void)
+{
+	// Ensure global pullup isn't disabled.
+	MCUCR = MCUCR & ~(1 << PUD);
+	
+	// Enable INT2 interrupt on high signal for range finder.
+	EICRA = EICRA | (1 << ISC20) | (1 << ISC21);
+	EIMSK = EIMSK | (1 << INT2);
+	DDRB = DDRB & ~(1 << 2);
+	PORTB = PORTB | (1 << PORTB2);
+}
+
 static void i2c_init(void)
 {
 	// Sätt på ström till TWI-krets.
@@ -26,7 +48,7 @@ static void i2c_init(void)
 	
 	// Konfigurera SCL-frekvens.
 	TWSR = 0x00; // Prescaler 1 ger grundfrekvens på 1 MHz, så möjliga klockfrekvenser 3.9 - 1000 KHz (400 KHz max enl. protokoll).
-	TWBR = 2; // Grundfrekvensen delas med 2*TWBR.
+	TWBR = 12; // Grundfrekvensen delas med 2*TWBR.
 }
 
 /*
@@ -47,4 +69,6 @@ void board_init(void)
 	io_pin_init();
 	i2c_init();
 	spi_slave_init();
+	counter_init();
+	external_interrupt_init();
 }

@@ -58,6 +58,11 @@ void accelerator_get_multiple_register_values(const uint8_t start_adr, uint8_t* 
  */
 void accelerator_get_linear_acceleration(uint8_t* buffer);
 
+/*
+ * Check if there are new accelerator values available.
+ *
+ * Returns: A value > 0 if new values are available, else 0.
+ */
 uint8_t accelerator_new_values_available(void);
 
 #endif /* ACCELERATOR_MODULE_H_ */

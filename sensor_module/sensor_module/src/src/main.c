@@ -40,23 +40,16 @@ int main (void)
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
+	range_finder_init();
+	accelerator_init();
+	start_continuous_meassurement();
+	
+	//enable_intercomm();
 	sei();
-	enable_intercomm();
 	
-	PORTA = 0x02;
-	
-	uint8_t range_data = 0x10;
-	uint8_t* read_range_data;
-		
-	while (1) {
-		for (uint8_t i = 0; i < 0xFF; i++) {
-				write_new_sensor_data(RANGE_DATA_ID, &range_data);
-				read_range_data = get_most_recent_sensor_data(RANGE_DATA_ID);
-				PORTA = *read_range_data;
-				utilities_busy_wait_ms(100);
-				
-				range_data += 0x10;
-		}
+	while (1)
+	{
+		utilities_debug_output(get_most_recent_sensor_data(RANGE_DATA_ID), 1);
 	}
 	
 	return 0;
