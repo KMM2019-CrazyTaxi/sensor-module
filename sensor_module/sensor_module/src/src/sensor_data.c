@@ -9,6 +9,12 @@
 #include "sensor_data.h"
 #include "utilities.h"
 
+/* Constants for number of bytes in sensor data buffers */
+#define ACCELEROMETER_DATA_BYTES 6
+#define RANGE_DATA_BYTES 2
+#define SPEED_DATA_BYTES 1
+
+
 // Forward declares
 static void write_new_data(circle_buffer_t *sensor_data_buffer, uint8_t* new_data);
 static uint8_t* get_most_recent_data(circle_buffer_t *sensor_data_buffer);
@@ -46,16 +52,16 @@ static circle_buffer_t acc_data_buffer = {
  */
 static circle_buffer_t range_data_buffer = {
 	.data = {
-		(uint8_t[]) {0}, // 0
-		(uint8_t[]) {0}, // 1
-		(uint8_t[]) {0}, // 2
-		(uint8_t[]) {0}, // 3
-		(uint8_t[]) {0}, // 4
-		(uint8_t[]) {0}, // 5
-		(uint8_t[]) {0}, // 6
-		(uint8_t[]) {0}, // 7
-		(uint8_t[]) {0}, // 8
-		(uint8_t[]) {0}  // 9
+		(uint8_t[]) {0, 0}, // 0
+		(uint8_t[]) {0, 0}, // 1
+		(uint8_t[]) {0, 0}, // 2
+		(uint8_t[]) {0, 0}, // 3
+		(uint8_t[]) {0, 0}, // 4
+		(uint8_t[]) {0, 0}, // 5
+		(uint8_t[]) {0, 0}, // 6
+		(uint8_t[]) {0, 0}, // 7
+		(uint8_t[]) {0, 0}, // 8
+		(uint8_t[]) {0, 0}  // 9
 	},
 	.data_size = RANGE_DATA_BYTES,
 	.most_recent_index = 0
@@ -82,6 +88,18 @@ static circle_buffer_t speed_data_buffer = {
 	.most_recent_index = 0
 };
 
+uint8_t get_num_bytes_in_sensor_data(uint8_t sensor_data_id) {
+	switch (sensor_data_id) {
+		case ACCELEROMETER_DATA_ID:
+			return ACCELEROMETER_DATA_BYTES;
+		case RANGE_DATA_ID:
+			return RANGE_DATA_BYTES;
+		case SPEED_DATA_ID:
+			return SPEED_DATA_BYTES;
+		default:
+			utilities_error(UNDEFINED_SENSOR_DATA_ID_ON_READ)
+	}
+}
 
 void write_new_sensor_data(uint8_t sensor_data_id, uint8_t* new_data) {
 	switch (sensor_data_id) {
@@ -96,7 +114,7 @@ void write_new_sensor_data(uint8_t sensor_data_id, uint8_t* new_data) {
 			break;
 		default:
 			// Incorrect sensor ID occurred
-			utilities_error(UNDEFINED_SENSOR_DATA_ID_ON_WRITE);
+			utilities_error(UNDEFINED_SENSOR_DATA_ID_ON_READ_NUM_BYTES);
 	}
 }
 

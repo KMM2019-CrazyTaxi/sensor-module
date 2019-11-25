@@ -9,33 +9,21 @@
 
 #include "intercomm.h"
 #include "spi.h"
+#include "sensor_data.h"
 
 #define MAX_ALIGN_ATTEMPTS 5
 #define MAX_COMM_ATTEMPTS 5
 
 void send_status_and_data_packet(void);
+void send_and_update_check_byte(uint8_t data, uint8_t* check_byte);
+
 
 static uint8_t spi_aligned = 0;
 static uint8_t spi_read = 0;
 static uint8_t spi_finished = 0;
 
-
-/* Temporary structure of data to send, will be updated. */
-static uint8_t check_byte = 0;
-
 static uint8_t status_1 = 0x01;
 static uint8_t status_2 = 0x02;
-
-static uint8_t acc_x_1 = 0x03;
-static uint8_t acc_x_2 = 0x04;
-static uint8_t acc_y_1 = 0x05;
-static uint8_t acc_y_2 = 0x06;
-static uint8_t acc_z_1 = 0x07;
-static uint8_t acc_z_2 = 0x08;
-
-static uint8_t dist = 0x09;
-
-static uint8_t speed = 0x0A;
 
 // SPI Transmission/reception completed interrupt service routine
 ISR(SPI_STC_vect)
@@ -71,43 +59,45 @@ ISR(SPI_STC_vect)
 	spi_finished = 0;
 }
 
-
+/*
+ *  Sends status and data packets and a checkbyte of all the data transmitted via SPI.
+ */
 void send_status_and_data_packet(void) {
-	/* Status data */	
-	spi_transcieve(status_1);
-	spi_transcieve(status_2);
-	check_byte = status_1 ^ status_2;
+	uint8_t check_byte = 0x00;
+
+	/* Status data */		
+	send_and_update_check_byte(status_1, check_byte);
+	send_and_update_check_byte(status_2, check_byte);
 	
-	/* Accelerometer data */
-	spi_transcieve(acc_x_1);
-	check_byte ^= acc_x_1;
+
+
+	/* Range data */
+	uint8_t range_data_buffer = get_most_recent_sensor_data(RANGE_DATA_ID);
 	
-	spi_transcieve(acc_x_2);
-	check_byte ^= acc_x_2;
-	
-	spi_transcieve(acc_y_1);
-	check_byte ^= acc_y_1;
-	
-	spi_transcieve(acc_y_2);
-	check_byte ^= acc_y_2;
-	
-	spi_transcieve(acc_z_1);
-	check_byte ^= acc_z_1;
-	
-	spi_transcieve(acc_z_2);
-	check_byte ^= acc_z_2;
-	
-	/* Distance data */
-	spi_transcieve(dist);
-	check_byte ^= dist;
+	// Sends in the following order RANGE_LO, RANGE_HI
+	for (uint8_t = 0; i < RANGE_DATA_BYTES; i++) {
+		send_and_update_check_byte(acc_data_buffer[i], check_byte);
+	}
 	
 	/* Speed data */
-	spi_transcieve(speed);
-	check_byte ^= speed;
+	// Sends in the 
 	
 	/* Check byte */
 	spi_transcieve(check_byte);
-	
+}
+
+void send_sensor_data_and_update_check_byte(uint8_t data_id) {
+	uint8_t* sensor_data_buffer = get_most_recent_sensor_data(data_id);
+		
+	// Sends in little endian order
+	for (uint8_t i = 0; i < data_id; i++) {
+		send_and_update_check_byte(acc_data_buffer[i], check_byte);
+	}	
+}
+
+void send_and_update_check_byte(uint8_t data, uint8_t* check_byte) {
+	spi_transcieve(data);
+	(*check_byte) ^= data;
 }
 
 void enable_intercomm(void) {
