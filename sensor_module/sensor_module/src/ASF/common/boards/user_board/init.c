@@ -21,22 +21,24 @@ static void io_pin_init(void)
 
 static void counter_init(void)
 {
-	/*
 	// Configure counter 0 for accelerator interrupts.
 	PRR0 = PRR0 & ~(1 << PRTIM0);	// Enable COUNT0 circuit.
 	TCCR0A = (0 << COM0A1) | (1 << COM0A0) | (1 << WGM01) | (1 << WGM00);	// Configure output compare and ctc mode.
 	TCCR0B = 0x05;	// Prescaler 1024 on system clock.
 	TIMSK0 = (1 << OCIE0A);	// Enable interrupt on compare.
 	OCR0A = 255;	// An interrupt is generated when counter reaches this value
-	*/
 
 	// Configure counter 1 for hall effect right
 	PRR0 = PRR0 & ~(1 << PRTIM1);	// Enable COUNT1 circuit.
-	TCCR1B = 0x03;	// Prescaler 1024 on system clock.
+	TCCR1A = 0;	// Normal mode
+	TCCR1B = (0 << CS12) | (1 << CS11) | (1 << CS10);	// Prescaler 64 on system clock
+	TIMSK1 = (1 << TOIE1);	// Enable overflow interrupt
 	
-	// Configure counter 3 for hall effect right
+	// Configure counter 3 for hall effect left
 	PRR0 = PRR0 & ~(1 << PRTIM3);	// Enable COUNT3 circuit.
-	TCCR3B = 0x03;	// Prescaler 1024 on system clock.
+	TCCR3A = 0; // Normal mode
+	TCCR3B = (0 << CS32) | (1 << CS31) | (1 << CS30);	// Prescaler 64 on system clock.
+	TIMSK3 = (1 << TOIE3);	// Enable overflow interrupt
 }
 
 static void external_interrupt_init(void)

@@ -49,7 +49,10 @@ int main (void)
 	//enable_intercomm();
 	sei();
 	
-	while (1);
+	while (1)
+	{
+		PORTA = *get_most_recent_sensor_data(SPEED_DATA_ID);
+	}
 	
 	return 0;
 }
