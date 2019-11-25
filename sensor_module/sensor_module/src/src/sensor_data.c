@@ -97,7 +97,8 @@ uint8_t get_num_bytes_in_sensor_data(uint8_t sensor_data_id) {
 		case SPEED_DATA_ID:
 			return SPEED_DATA_BYTES;
 		default:
-			utilities_error(UNDEFINED_SENSOR_DATA_ID_ON_READ)
+			// Incorrect sensor data ID
+			utilities_error(UNDEFINED_SENSOR_DATA_ID_ON_READ);
 	}
 }
 

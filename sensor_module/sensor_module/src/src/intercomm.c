@@ -14,7 +14,9 @@
 #define MAX_ALIGN_ATTEMPTS 5
 #define MAX_COMM_ATTEMPTS 5
 
+// Forward declares
 void send_status_and_data_packet(void);
+void send_sensor_data_and_update_check_byte(uint8_t sensor_data_id, uint8_t* check_byte);
 void send_and_update_check_byte(uint8_t data, uint8_t* check_byte);
 
 
@@ -22,6 +24,8 @@ static uint8_t spi_aligned = 0;
 static uint8_t spi_read = 0;
 static uint8_t spi_finished = 0;
 
+
+// Temporary static variables
 static uint8_t status_1 = 0x01;
 static uint8_t status_2 = 0x02;
 
@@ -66,32 +70,32 @@ void send_status_and_data_packet(void) {
 	uint8_t check_byte = 0x00;
 
 	/* Status data */		
-	send_and_update_check_byte(status_1, check_byte);
-	send_and_update_check_byte(status_2, check_byte);
+	send_and_update_check_byte(status_1, &check_byte);
+	send_and_update_check_byte(status_2, &check_byte);
 	
+	
+	/* Accelerometer data */
+	send_sensor_data_and_update_check_byte(ACCELEROMETER_DATA_ID, &check_byte);
 
 
 	/* Range data */
-	uint8_t range_data_buffer = get_most_recent_sensor_data(RANGE_DATA_ID);
+	send_sensor_data_and_update_check_byte(RANGE_DATA_ID, &check_byte);
 	
-	// Sends in the following order RANGE_LO, RANGE_HI
-	for (uint8_t = 0; i < RANGE_DATA_BYTES; i++) {
-		send_and_update_check_byte(acc_data_buffer[i], check_byte);
-	}
 	
 	/* Speed data */
-	// Sends in the 
+	send_sensor_data_and_update_check_byte(SPEED_DATA_ID, &check_byte);
+	
 	
 	/* Check byte */
 	spi_transcieve(check_byte);
 }
 
-void send_sensor_data_and_update_check_byte(uint8_t data_id) {
-	uint8_t* sensor_data_buffer = get_most_recent_sensor_data(data_id);
+void send_sensor_data_and_update_check_byte(uint8_t sensor_data_id, uint8_t* check_byte) {
+	uint8_t* sensor_data_buffer = get_most_recent_sensor_data(sensor_data_id);
 		
 	// Sends in little endian order
-	for (uint8_t i = 0; i < data_id; i++) {
-		send_and_update_check_byte(acc_data_buffer[i], check_byte);
+	for (uint8_t i = 0; i < get_num_bytes_in_sensor_data(sensor_data_id); i++) {
+		send_and_update_check_byte(sensor_data_buffer[i], check_byte);
 	}	
 }
 
