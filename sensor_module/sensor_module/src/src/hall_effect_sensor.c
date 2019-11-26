@@ -18,7 +18,7 @@ movement per interrupt = 0.25 dm. count per second is clock speed / prescaler
 i.e. 16 000 000 / 64 = 250 000. The constant is thus 250 000 * 0.25 = 62 500.
 This constant must be recalculated if any of the values used are changed.
 */
-static const uint16_t counter_to_speed_constant = 62500;
+static const uint16_t COUNTER_TO_SPEED = 62500;
 
 // Indicates if an overflow has occured since last hall effect interrupt.
 static uint8_t cnt_1_overflow = 1;
@@ -31,10 +31,9 @@ static uint8_t speed_left = 0;
 // Utility function for updating the current speed.
 static void update_speed(void)
 {
-	uint16_t speed = speed_right;
-	speed += speed_left;
-	speed >>= 1;
-	write_new_sensor_data(SPEED_DATA_ID, (uint8_t*) &speed);
+    uint16_t speed = (uint16_t) speed_right + (uint16_t) speed_left;
+    speed >>= 1;
+    write_new_sensor_data(SPEED_DATA_ID, (uint8_t*) &speed);
 }
 
 void hall_effect_init(void)
@@ -49,9 +48,9 @@ ISR(INT0_vect)
 	if (!cnt_1_overflow)
 	{
 		const uint16_t counter_value = TCNT1;
-		speed_right = counter_to_speed_constant / counter_value;
+		speed_right = COUNTER_TO_SPEED / counter_value;
+                update_speed();
 	}
-	update_speed();
 	cnt_1_overflow = 0;
 	TCNT1 = 0;
 }
@@ -73,9 +72,9 @@ ISR(INT1_vect)
 	if (!cnt_3_overflow)
 	{
 		const uint16_t counter_value = TCNT3;
-		speed_left = counter_to_speed_constant / counter_value;
+		speed_left = COUNTER_TO_SPEED / counter_value;
+                update_speed();
 	}
-	update_speed();
 	cnt_3_overflow = 0;
 	TCNT3 = 0;
 }
