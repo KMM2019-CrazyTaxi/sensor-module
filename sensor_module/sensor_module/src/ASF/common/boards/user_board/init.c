@@ -27,6 +27,18 @@ static void counter_init(void)
 	TCCR0B = 0x05;	// Prescaler 1024 on system clock.
 	TIMSK0 = (1 << OCIE0A);	// Enable interrupt on compare.
 	OCR0A = 255;	// An interrupt is generated when counter reaches this value
+
+	// Configure counter 1 for hall effect right
+	PRR0 = PRR0 & ~(1 << PRTIM1);	// Enable COUNT1 circuit.
+	TCCR1A = 0;	// Normal mode
+	TCCR1B = (0 << CS12) | (1 << CS11) | (1 << CS10);	// Prescaler 64 on system clock
+	TIMSK1 = (1 << TOIE1);	// Enable overflow interrupt
+	
+	// Configure counter 3 for hall effect left
+	PRR0 = PRR0 & ~(1 << PRTIM3);	// Enable COUNT3 circuit.
+	TCCR3A = 0; // Normal mode
+	TCCR3B = (0 << CS32) | (1 << CS31) | (1 << CS30);	// Prescaler 64 on system clock.
+	TIMSK3 = (1 << TOIE3);	// Enable overflow interrupt
 }
 
 static void external_interrupt_init(void)
@@ -34,11 +46,25 @@ static void external_interrupt_init(void)
 	// Ensure global pullup isn't disabled.
 	MCUCR = MCUCR & ~(1 << PUD);
 	
+	// Enable INT0 interrupt on low signal for hall effect right
+	EICRA = EICRA | (1 << ISC01);	// Falling edge
+	EIMSK = EIMSK | (1 << INT0);	// Enable INT0
+	DDRD = DDRD & ~(1 << 2);	// Enable input on appropriate pin
+	PORTD = PORTD | (1 << PORTD2);	// Enable pullup
+	
+	// Enable INT1 interrupt on low signal for hall effect left
+	EICRA = EICRA | (1 << ISC11);	// Falling edge
+	EIMSK = EIMSK | (1 << INT1);	// Enable INT1
+	DDRD = DDRD & ~(1 << 3);	// Enable input on appropriate pin
+	PORTD = PORTD | (1 << PORTD3);	// Enable pullup
+	
+	/*
 	// Enable INT2 interrupt on high signal for range finder.
-	EICRA = EICRA | (1 << ISC20) | (1 << ISC21);
-	EIMSK = EIMSK | (1 << INT2);
-	DDRB = DDRB & ~(1 << 2);
-	PORTB = PORTB | (1 << PORTB2);
+	EICRA = EICRA | (1 << ISC20) | (1 << ISC21);	// Rising edge
+	EIMSK = EIMSK | (1 << INT2);	// Enable INT2
+	DDRB = DDRB & ~(1 << 2);	// Enable input on appropriate pin
+	PORTB = PORTB | (1 << PORTB2);	// Enable pullup
+	*/
 }
 
 static void i2c_init(void)
