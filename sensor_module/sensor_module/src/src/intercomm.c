@@ -10,9 +10,7 @@
 #include "intercomm.h"
 #include "spi.h"
 #include "sensor_data.h"
-
-#define MAX_ALIGN_ATTEMPTS 5
-#define MAX_COMM_ATTEMPTS 5
+#include "utilities.h"
 
 // Forward declares
 void send_status_and_data_packet(void);
@@ -22,7 +20,7 @@ void send_and_update_check_byte(uint8_t data, uint8_t* check_byte);
 
 static uint8_t spi_aligned = 0;
 static uint8_t spi_read = 0;
-static uint8_t spi_finished = 0;
+static uint8_t spi_confirmed = 0;
 
 
 // Temporary static variables
@@ -33,38 +31,29 @@ static uint8_t status_2 = 0x02;
 ISR(SPI_STC_vect)
 {	
 	PORTA = 0xCC;
-	uint8_t comm_attempts = 0;
-	// Attempt a full communication until finished or it has been attempted over max amount
-	while (spi_finished == 0 && comm_attempts < MAX_COMM_ATTEMPTS) {
+
+	spi_read = spi_get_data_register_value();
+
+	spi_aligned = (spi_read == SPI_START); // SPI is aligned if START was read
+	if (spi_aligned) {
+		// Send SPI acknowledge byte
+		spi_transcieve(SPI_ACK);
 		
-		uint8_t align_attempts = 0;
-		// Attempt to align SPI until aligned or until it has been attempted over max amount
-		while (spi_aligned == 0 && align_attempts < MAX_ALIGN_ATTEMPTS) {
-			spi_read = SPDR;
-			//PORTA = spi_read;
-			spi_aligned = spi_read == SPI_START; // SPI is aligned if START was read
-			if (spi_aligned) {
-				spi_transcieve(SPI_ACK);
-			
-			} else {
-				spi_transcieve(SPI_RESTART);
-			}
-			
-			align_attempts++;
+		if (SPSR & (1 << WCOL))
+		{
+			utilities_error(0x12);
 		}
 		
-		if (spi_aligned) {
+		// Read SPI confirm byte
+		spi_read = spi_transcieve(SPI_NAN);
+		spi_confirmed = spi_read == SPI_CONFIRM;
+		
+		if (spi_confirmed) {
+			PORTA = 0x44;
 			send_status_and_data_packet();
-		
-			spi_read = spi_transcieve(SPI_NAN);
-			spi_finished = spi_read == SPI_FINISHED;
-		
-			comm_attempts++;
-		
-			spi_aligned = 0;
+			spi_transcieve(SPI_NAN);
 		}
 	}
-	spi_finished = 0;
 }
 
 
