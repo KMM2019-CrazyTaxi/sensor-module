@@ -32,15 +32,16 @@ static uint8_t status_2 = 0x02;
 // SPI Transmission/reception completed interrupt service routine
 ISR(SPI_STC_vect)
 {	
+	PORTA = 0xCC;
 	uint8_t comm_attempts = 0;
 	// Attempt a full communication until finished or it has been attempted over max amount
 	while (spi_finished == 0 && comm_attempts < MAX_COMM_ATTEMPTS) {
 		
 		uint8_t align_attempts = 0;
 		// Attempt to align SPI until aligned or until it has been attempted over max amount
-		while (spi_aligned == 0 &&  align_attempts < MAX_ALIGN_ATTEMPTS) {
+		while (spi_aligned == 0 && align_attempts < MAX_ALIGN_ATTEMPTS) {
 			spi_read = SPDR;
-			PORTA = spi_read;
+			//PORTA = spi_read;
 			spi_aligned = spi_read == SPI_START; // SPI is aligned if START was read
 			if (spi_aligned) {
 				spi_transcieve(SPI_ACK);
@@ -51,17 +52,21 @@ ISR(SPI_STC_vect)
 			
 			align_attempts++;
 		}
-		spi_aligned = 0;
-	
-		send_status_and_data_packet();
-	
-		spi_read = spi_transcieve(SPI_NAN);
-		spi_finished = spi_read == SPI_FINISHED;
 		
-		comm_attempts++;
+		if (spi_aligned) {
+			send_status_and_data_packet();
+		
+			spi_read = spi_transcieve(SPI_NAN);
+			spi_finished = spi_read == SPI_FINISHED;
+		
+			comm_attempts++;
+		
+			spi_aligned = 0;
+		}
 	}
 	spi_finished = 0;
 }
+
 
 /*
  *  Sends status and data packets and a checkbyte of all the data transmitted via SPI.
@@ -90,6 +95,7 @@ void send_status_and_data_packet(void) {
 	spi_transcieve(check_byte);
 }
 
+
 void send_sensor_data_and_update_check_byte(uint8_t sensor_data_id, uint8_t* check_byte) {
 	uint8_t* sensor_data_buffer = get_most_recent_sensor_data(sensor_data_id);
 		
@@ -99,14 +105,17 @@ void send_sensor_data_and_update_check_byte(uint8_t sensor_data_id, uint8_t* che
 	}	
 }
 
+
 void send_and_update_check_byte(uint8_t data, uint8_t* check_byte) {
 	spi_transcieve(data);
 	(*check_byte) ^= data;
 }
 
+
 void enable_intercomm(void) {
 	SPCR |= (1<<SPIE);
 }
+
 
 void disable_intercomm(void) {
 	SPCR &= ~(1<<SPIE);
