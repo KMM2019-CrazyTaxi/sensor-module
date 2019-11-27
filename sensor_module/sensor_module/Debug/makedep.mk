@@ -18,6 +18,8 @@ src\range_finder_api\platform\src\vl53l0x_platform_log.c
 
 src\src\accelerator_module.c
 
+src\src\hall_effect_sensor.c
+
 src\src\i2c.c
 
 src\src\intercomm.c

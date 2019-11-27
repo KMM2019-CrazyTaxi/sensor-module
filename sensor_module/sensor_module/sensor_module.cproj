@@ -234,6 +234,9 @@
     <Compile Include="src\incl\asf.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\incl\hall_effect_sensor.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\incl\i2c.h">
       <SubType>compile</SubType>
     </Compile>
@@ -313,6 +316,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\src\accelerator_module.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\src\hall_effect_sensor.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\src\i2c.c">

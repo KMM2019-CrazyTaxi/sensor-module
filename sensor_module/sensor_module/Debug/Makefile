@@ -68,6 +68,7 @@ C_SRCS +=  \
 ../src/range_finder_api/platform/src/vl53l0x_platform.c \
 ../src/range_finder_api/platform/src/vl53l0x_platform_log.c \
 ../src/src/accelerator_module.c \
+../src/src/hall_effect_sensor.c \
 ../src/src/i2c.c \
 ../src/src/intercomm.c \
 ../src/src/main.c \
@@ -94,6 +95,7 @@ src/range_finder_api/core/src/vl53l0x_api_strings.o \
 src/range_finder_api/platform/src/vl53l0x_platform.o \
 src/range_finder_api/platform/src/vl53l0x_platform_log.o \
 src/src/accelerator_module.o \
+src/src/hall_effect_sensor.o \
 src/src/i2c.o \
 src/src/intercomm.o \
 src/src/main.o \
@@ -113,6 +115,7 @@ src/range_finder_api/core/src/vl53l0x_api_strings.o \
 src/range_finder_api/platform/src/vl53l0x_platform.o \
 src/range_finder_api/platform/src/vl53l0x_platform_log.o \
 src/src/accelerator_module.o \
+src/src/hall_effect_sensor.o \
 src/src/i2c.o \
 src/src/intercomm.o \
 src/src/main.o \
@@ -132,6 +135,7 @@ src/range_finder_api/core/src/vl53l0x_api_strings.d \
 src/range_finder_api/platform/src/vl53l0x_platform.d \
 src/range_finder_api/platform/src/vl53l0x_platform_log.d \
 src/src/accelerator_module.d \
+src/src/hall_effect_sensor.d \
 src/src/i2c.d \
 src/src/intercomm.d \
 src/src/main.d \
@@ -151,6 +155,7 @@ src/range_finder_api/core/src/vl53l0x_api_strings.d \
 src/range_finder_api/platform/src/vl53l0x_platform.d \
 src/range_finder_api/platform/src/vl53l0x_platform_log.d \
 src/src/accelerator_module.d \
+src/src/hall_effect_sensor.d \
 src/src/i2c.d \
 src/src/intercomm.d \
 src/src/main.d \
@@ -175,6 +180,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

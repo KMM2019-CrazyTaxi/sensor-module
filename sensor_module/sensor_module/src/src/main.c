@@ -34,22 +34,24 @@
 #include "intercomm.h"
 
 #include "sensor_data.h"
+#include "hall_effect_sensor.h"
 
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-	range_finder_init();
-	accelerator_init();
-	start_continuous_meassurement();
+	//range_finder_init();
+	//accelerator_init();
+	//start_continuous_meassurement();
+	hall_effect_init();
 	
 	//enable_intercomm();
 	sei();
 	
 	while (1)
 	{
-		utilities_debug_output(get_most_recent_sensor_data(RANGE_DATA_ID), 1);
+		PORTA = *get_most_recent_sensor_data(SPEED_DATA_ID);
 	}
 	
 	return 0;
