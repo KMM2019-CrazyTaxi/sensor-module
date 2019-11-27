@@ -30,8 +30,6 @@ static uint8_t status_2 = 0x02;
 // SPI Transmission/reception completed interrupt service routine
 ISR(SPI_STC_vect)
 {	
-	PORTA = 0xCC;
-
 	spi_read = spi_get_data_register_value();
 
 	spi_aligned = (spi_read == SPI_START); // SPI is aligned if START was read
@@ -43,13 +41,11 @@ ISR(SPI_STC_vect)
 		{
 			utilities_error(0x12);
 		}
-		
 		// Read SPI confirm byte
 		spi_read = spi_transcieve(SPI_NAN);
 		spi_confirmed = spi_read == SPI_CONFIRM;
 		
 		if (spi_confirmed) {
-			PORTA = 0x44;
 			send_status_and_data_packet();
 			spi_transcieve(SPI_NAN);
 		}

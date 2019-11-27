@@ -41,18 +41,15 @@ int main (void)
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-	//range_finder_init();
-	//accelerator_init();
-	//start_continuous_meassurement();
+	range_finder_init();
+	accelerator_init();
+	start_continuous_meassurement();
 	hall_effect_init();
 	
-	//enable_intercomm();
+	enable_intercomm();
 	sei();
 	
-	while (1)
-	{
-		PORTA = *get_most_recent_sensor_data(SPEED_DATA_ID);
-	}
+	while (1);
 	
 	return 0;
 }

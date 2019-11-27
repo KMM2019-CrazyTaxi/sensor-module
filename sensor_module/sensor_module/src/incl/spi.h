@@ -20,7 +20,7 @@
 #define DD_SCK PORTB7
 
 /* SPI value constants */
-#define SPI_START 0xAA
+#define SPI_START 0x11
 #define SPI_NAN 0x00
 #define SPI_FINISHED 0x66
 #define SPI_RESTART 0x99
