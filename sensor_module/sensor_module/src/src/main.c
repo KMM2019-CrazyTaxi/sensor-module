@@ -38,18 +38,24 @@
 
 int main (void)
 {
-	// Insert system clock initialization code here (sysclk_init()).
+	
 
+	// Insert system clock initialization code here (sysclk_init()).
 	board_init();
 	range_finder_init();
 	accelerator_init();
 	start_continuous_meassurement();
 	hall_effect_init();
 	
+	
 	enable_intercomm();
 	sei();
 	
-	while (1);
+	while (1) {
+		//PORTA = 0xFF;
+		PORTA = get_most_recent_sensor_data(RANGE_DATA_ID)[0];
+	}
+	
 	
 	return 0;
 }
