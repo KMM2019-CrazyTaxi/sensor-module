@@ -29,6 +29,8 @@
 #include <stdint.h>
 #define F_CPU 16000000UL // 16 MHz
 
+#define SOUND_CNT_TOGGLE 5000
+
 #include "tests/basic_functionality_tests.h"
 #include "utilities.h"
 #include "intercomm.h"
@@ -51,9 +53,20 @@ int main (void)
 	enable_intercomm();
 	sei();
 	
+	uint32_t sound_cnt = 0;
+	uint8_t sound_tgl = 0;
+	
 	while (1) {
-		//PORTA = 0xFF;
-		PORTA = get_most_recent_sensor_data(RANGE_DATA_ID)[0];
+		++sound_cnt;
+		if (sound_cnt == SOUND_CNT_TOGGLE)
+		{
+			sound_cnt = 0;
+			if (*((uint16_t*) get_most_recent_sensor_data(RANGE_DATA_ID)) < 1000)
+			{
+				sound_tgl = ~sound_tgl;
+			}
+			PORTA = sound_tgl;
+		}
 	}
 	
 	
