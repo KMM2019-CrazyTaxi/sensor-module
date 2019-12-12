@@ -30,6 +30,7 @@
 #define F_CPU 16000000UL // 16 MHz
 
 #define SOUND_CNT_TOGGLE 5000
+#define HORN_DISTANCE_MM 1000
 
 #include "tests/basic_functionality_tests.h"
 #include "utilities.h"
@@ -61,7 +62,7 @@ int main (void)
 		if (sound_cnt == SOUND_CNT_TOGGLE)
 		{
 			sound_cnt = 0;
-			if (*((uint16_t*) get_most_recent_sensor_data(RANGE_DATA_ID)) < 1000)
+			if (*((uint16_t*) get_most_recent_sensor_data(RANGE_DATA_ID)) < HORN_DISTANCE_MM)
 			{
 				sound_tgl = ~sound_tgl;
 			}

@@ -13,9 +13,9 @@
 #include "utilities.h"
 
 // Forward declares
-void send_status_and_data_packet(void);
-void send_sensor_data_and_update_check_byte(uint8_t sensor_data_id, uint8_t* check_byte);
-void send_and_update_check_byte(uint8_t data, uint8_t* check_byte);
+static void send_status_and_data_packet(void);
+static void send_sensor_data_and_update_check_byte(uint8_t sensor_data_id, uint8_t* check_byte);
+static void send_and_update_check_byte(uint8_t data, uint8_t* check_byte);
 
 
 static uint8_t spi_aligned = 0;
@@ -39,7 +39,7 @@ ISR(SPI_STC_vect)
 		
 		if (SPSR & (1 << WCOL))
 		{
-			utilities_error(0x12);
+			return;
 		}
 		// Read SPI confirm byte
 		spi_read = spi_transcieve(SPI_NAN);
