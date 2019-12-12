@@ -13,7 +13,7 @@
 void accelerator_init(void)
 {
 	// Enable normal 50 Hz mode for linear XYZ acceleration.
-	accelerator_set_register_value(0x20, 0x47);
+	accelerator_set_register_value(0x20, 0x57);
 }
 
 void accelerator_set_register_value(const uint8_t reg_adr, const uint8_t data)
