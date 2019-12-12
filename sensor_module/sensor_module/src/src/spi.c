@@ -23,3 +23,7 @@ uint8_t spi_slave_receive(void) {
 	/* Return Data Register value */
 	return SPDR;
 }
+
+uint8_t spi_get_data_register_value(void) {
+	return SPDR;
+}

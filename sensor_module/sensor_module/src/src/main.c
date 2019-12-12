@@ -29,6 +29,9 @@
 #include <stdint.h>
 #define F_CPU 16000000UL // 16 MHz
 
+#define SOUND_CNT_TOGGLE 5000
+#define HORN_DISTANCE_MM 1000
+
 #include "tests/basic_functionality_tests.h"
 #include "utilities.h"
 #include "intercomm.h"
@@ -38,21 +41,35 @@
 
 int main (void)
 {
-	// Insert system clock initialization code here (sysclk_init()).
+	
 
+	// Insert system clock initialization code here (sysclk_init()).
 	board_init();
-	//range_finder_init();
-	//accelerator_init();
-	//start_continuous_meassurement();
+	range_finder_init();
+	accelerator_init();
+	start_continuous_meassurement();
 	hall_effect_init();
 	
-	//enable_intercomm();
+	
+	enable_intercomm();
 	sei();
 	
-	while (1)
-	{
-		PORTA = *get_most_recent_sensor_data(SPEED_DATA_ID);
+	uint32_t sound_cnt = 0;
+	uint8_t sound_tgl = 0;
+	
+	while (1) {
+		++sound_cnt;
+		if (sound_cnt == SOUND_CNT_TOGGLE)
+		{
+			sound_cnt = 0;
+			if (*((uint16_t*) get_most_recent_sensor_data(RANGE_DATA_ID)) < HORN_DISTANCE_MM)
+			{
+				sound_tgl = ~sound_tgl;
+			}
+			PORTA = sound_tgl;
+		}
 	}
+	
 	
 	return 0;
 }

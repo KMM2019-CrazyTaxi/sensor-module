@@ -67,6 +67,4 @@ ISR(TIMER0_COMPA_vect)
 	uint8_t data[6];
 	accelerator_get_linear_acceleration(data);
 	write_new_sensor_data(ACCELEROMETER_DATA_ID, data);
-	
-	// TODO Put data in correct place.
 }

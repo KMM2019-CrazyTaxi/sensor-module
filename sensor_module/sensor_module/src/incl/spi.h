@@ -20,12 +20,13 @@
 #define DD_SCK PORTB7
 
 /* SPI value constants */
-#define SPI_START 0xAA
+#define SPI_START 0x11
 #define SPI_NAN 0x00
 #define SPI_FINISHED 0x66
 #define SPI_RESTART 0x99
 #define SPI_ERROR 0x55
 #define SPI_ACK 0xEE
+#define SPI_CONFIRM 0xCC
 
 
 /*
@@ -41,6 +42,10 @@ uint8_t spi_transcieve(uint8_t trans_data);
 uint8_t spi_slave_receive(void);
 
 
+/*
+ * Returns the spi data register value.
+ */
+uint8_t spi_get_data_register_value(void);
 
 
 #endif /* SPI_H_ */

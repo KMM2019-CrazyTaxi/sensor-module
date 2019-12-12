@@ -53,5 +53,6 @@ void utilities_error(const uint8_t error_code);
 #define UNDEFINED_SENSOR_DATA_ID_ON_WRITE 0x30
 #define UNDEFINED_SENSOR_DATA_ID_ON_READ 0x31
 #define UNDEFINED_SENSOR_DATA_ID_ON_READ_ALL 0x32
+#define UNDEFINED_SENSOR_DATA_ID_ON_READ_NUM_BYTES 0x33
 
 #endif /* UTILITIES_H_ */

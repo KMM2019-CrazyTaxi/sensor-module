@@ -18,9 +18,7 @@
 /* Sensor data constants */
 #define SENSOR_DATA_ARRAY_SIZE 10
 
-#define ACCELEROMETER_DATA_BYTES 6
-#define RANGE_DATA_BYTES 1
-#define SPEED_DATA_BYTES 1
+
 
 
 /* 
@@ -34,6 +32,11 @@ typedef struct {
 	uint8_t most_recent_index;
 } circle_buffer_t;
 
+
+/*
+ * Returns the number of bytes in the entered sensors data buffer.
+ */
+uint8_t get_num_bytes_in_sensor_data(uint8_t sensor_data_id);
 
 /*
  * Writes the new_data buffer to the circular buffer of the entered sensor data id.
