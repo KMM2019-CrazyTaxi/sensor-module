@@ -72,6 +72,7 @@ C_SRCS +=  \
 ../src/src/i2c.c \
 ../src/src/intercomm.c \
 ../src/src/main.c \
+../src/src/music.c \
 ../src/src/range_finder_module.c \
 ../src/src/sensor_data.c \
 ../src/src/spi.c \
@@ -99,6 +100,7 @@ src/src/hall_effect_sensor.o \
 src/src/i2c.o \
 src/src/intercomm.o \
 src/src/main.o \
+src/src/music.o \
 src/src/range_finder_module.o \
 src/src/sensor_data.o \
 src/src/spi.o \
@@ -119,6 +121,7 @@ src/src/hall_effect_sensor.o \
 src/src/i2c.o \
 src/src/intercomm.o \
 src/src/main.o \
+src/src/music.o \
 src/src/range_finder_module.o \
 src/src/sensor_data.o \
 src/src/spi.o \
@@ -139,6 +142,7 @@ src/src/hall_effect_sensor.d \
 src/src/i2c.d \
 src/src/intercomm.d \
 src/src/main.d \
+src/src/music.d \
 src/src/range_finder_module.d \
 src/src/sensor_data.d \
 src/src/spi.d \
@@ -159,6 +163,7 @@ src/src/hall_effect_sensor.d \
 src/src/i2c.d \
 src/src/intercomm.d \
 src/src/main.d \
+src/src/music.d \
 src/src/range_finder_module.d \
 src/src/sensor_data.d \
 src/src/spi.d \
@@ -180,6 +185,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

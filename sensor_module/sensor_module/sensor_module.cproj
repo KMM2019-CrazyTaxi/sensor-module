@@ -243,6 +243,9 @@
     <Compile Include="src\incl\intercomm.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\incl\music.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\incl\range_finder_module.h">
       <SubType>compile</SubType>
     </Compile>
@@ -328,6 +331,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\src\main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\src\music.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\src\range_finder_module.c">

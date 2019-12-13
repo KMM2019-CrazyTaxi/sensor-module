@@ -26,6 +26,8 @@ src\src\intercomm.c
 
 src\src\main.c
 
+src\src\music.c
+
 src\src\range_finder_module.c
 
 src\src\sensor_data.c
