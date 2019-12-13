@@ -85,7 +85,7 @@ static uint8_t mr_bombay_length[10] =
 
 static song_t mr_bombay = 
 {
-	6,
+	7,
 	10,
 	mr_bombay_pitch,
 	mr_bombay_length
@@ -215,12 +215,33 @@ static song_t let_it_go =
 	let_it_go_length
 };
 
-#define N_SONGS 10
+static uint8_t cantina_band_pitch[18] =
+{
+	13, 18, 13, 18, 13, 18, 13, 12, 13,
+	13, 12, 13, 11, 10, 11, 10, 9, 6
+};
+
+static uint8_t cantina_band_length[18] =
+{
+	2, 2, 2, 2, 1, 2, 2, 1, 2,
+	1, 1, 1, 2, 1, 1, 1, 3, 5,
+};
+
+static song_t cantina_band =
+{
+	8,
+	18,
+	cantina_band_pitch,
+	cantina_band_length
+};
+
+#define N_SONGS 11
 
 static song_t* songs[N_SONGS] = 
 {
 	&glassbilen,
 	&blinka,
+	&cantina_band,
 	&let_it_go,
 	&cotton_eye_joe,
 	&oops,
