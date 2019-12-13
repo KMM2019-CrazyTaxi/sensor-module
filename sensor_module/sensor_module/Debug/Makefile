@@ -75,6 +75,7 @@ C_SRCS +=  \
 ../src/src/music.c \
 ../src/src/range_finder_module.c \
 ../src/src/sensor_data.c \
+../src/src/songs.c \
 ../src/src/spi.c \
 ../src/src/utilities.c \
 ../src/tests/basic_functionality_tests.c \
@@ -103,6 +104,7 @@ src/src/main.o \
 src/src/music.o \
 src/src/range_finder_module.o \
 src/src/sensor_data.o \
+src/src/songs.o \
 src/src/spi.o \
 src/src/utilities.o \
 src/tests/basic_functionality_tests.o \
@@ -124,6 +126,7 @@ src/src/main.o \
 src/src/music.o \
 src/src/range_finder_module.o \
 src/src/sensor_data.o \
+src/src/songs.o \
 src/src/spi.o \
 src/src/utilities.o \
 src/tests/basic_functionality_tests.o \
@@ -145,6 +148,7 @@ src/src/main.d \
 src/src/music.d \
 src/src/range_finder_module.d \
 src/src/sensor_data.d \
+src/src/songs.d \
 src/src/spi.d \
 src/src/utilities.d \
 src/tests/basic_functionality_tests.d \
@@ -166,6 +170,7 @@ src/src/main.d \
 src/src/music.d \
 src/src/range_finder_module.d \
 src/src/sensor_data.d \
+src/src/songs.d \
 src/src/spi.d \
 src/src/utilities.d \
 src/tests/basic_functionality_tests.d \
@@ -185,6 +190,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

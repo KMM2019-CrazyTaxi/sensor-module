@@ -7,10 +7,11 @@
 
 #include "music.h"
 #include "sensor_data.h"
+#include "songs.h"
 
 #include <asf.h>
 
-#define BETWEEN_NOTE_PAUSE 20000
+#define BETWEEN_NOTE_PAUSE 30000
 #define HORN_DISTANCE_MM 1000
 
 static const uint16_t SOUND_CNT_VALUES[25] =
@@ -70,8 +71,6 @@ static const uint16_t NOTE_FREQ_MULT_2[25] =
 		1976,
 		2093
 	};
-	
-#define NOTE_LENGTH_DIVIDER 6
 
 /*
 // Blinka lilla stjärna.
@@ -99,20 +98,7 @@ static uint8_t note_length[N_NOTES] =
 */
 
 // Glassbilen
-#define N_NOTES 16
-static uint8_t notes[N_NOTES] =
-	{
-		8, 17, 20, 17, 13,
-		8, 17, 20, 17, 13,
-		8, 18, 18, 15, 15, 13
-	};
-	
-static uint8_t note_length[N_NOTES] =
-	{
-		1, 1, 1, 1, 2,
-		1, 1, 1, 1, 2,
-		1, 2, 1, 2, 1, 5
-	};
+static song_t* current_song;
 	
 static uint8_t note_index = 0;
 static uint16_t note_upd = 0;
@@ -120,7 +106,8 @@ static uint8_t curr_note_length = 0;
 
 static void update_note_values(void)
 {
-	if (note_upd == NOTE_FREQ_MULT_2[notes[note_index]] / NOTE_LENGTH_DIVIDER)
+	if (note_upd == NOTE_FREQ_MULT_2[current_song->note_pitch[note_index]]
+	 / current_song->note_length_divider)
 	{
 		++curr_note_length;
 		note_upd = 0;
@@ -136,12 +123,12 @@ static uint16_t go_to_next_note(void)
 
 static uint8_t note_has_ended(void)
 {
-	return curr_note_length >= note_length[note_index];
+	return curr_note_length >= current_song->note_length[note_index];
 }
 
 static uint8_t song_has_ended(void)
 {
-	return note_index >= N_NOTES;
+	return note_index >= current_song->n_notes;
 }
 
 static void music_reset(void)
@@ -164,16 +151,23 @@ uint16_t update_sound(void)
 		else
 		{
 			++note_upd;
-			return SOUND_CNT_VALUES[notes[note_index]];
+			return SOUND_CNT_VALUES[current_song->note_pitch[note_index]];
 		}
 	}
 	else if (*((uint16_t *) get_most_recent_sensor_data(RANGE_DATA_ID)) < HORN_DISTANCE_MM)
 	{
 		music_reset();
+		current_song = get_next_song();
 		return 1;
 	}
 	else
 	{
 		return 1;
 	}
+}
+
+void music_init(void)
+{
+	music_reset();
+	current_song = get_next_song();
 }

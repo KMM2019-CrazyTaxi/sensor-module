@@ -47,6 +47,7 @@ int main (void)
 	start_continuous_meassurement();
 	hall_effect_init();
 	enable_intercomm();
+	music_init();
 	sei();
 	
 	uint16_t cnt = 0;

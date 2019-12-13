@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 
+void music_init(void);
 uint16_t update_sound(void);
 
 #endif /* MUSIC_H_ */
