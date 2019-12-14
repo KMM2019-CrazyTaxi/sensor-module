@@ -29,8 +29,6 @@
 #include <stdint.h>
 #define F_CPU 16000000UL // 16 MHz
 
-#define SOUND_CNT_TOGGLE 5000
-
 #include "tests/basic_functionality_tests.h"
 #include "utilities.h"
 #include "intercomm.h"
@@ -60,23 +58,5 @@ int main (void)
 			end_cnt_at = update_sound();
 		}
 	}
-	
-	/*
-	uint32_t sound_cnt = 0;
-	uint8_t sound_tgl = 0;
-	while (1) {
-		++sound_cnt;
-		if (sound_cnt == SOUND_CNT_TOGGLE)
-		{
-			sound_cnt = 0;
-			if (*((uint16_t*) get_most_recent_sensor_data(RANGE_DATA_ID)) < HORN_DISTANCE_MM)
-			{
-				sound_tgl = ~sound_tgl;
-			}
-			PORTA = sound_tgl;
-		}
-	}*/
-	
-	
 	return 0;
 }

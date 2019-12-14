@@ -63,6 +63,12 @@ static void external_interrupt_init(void)
 	EIMSK = EIMSK | (1 << INT2);	// Enable INT2
 	DDRB = DDRB & ~(1 << 2);	// Enable input on appropriate pin
 	PORTB = PORTB | (1 << PORTB2);	// Enable pullup
+	
+	// Enable PCI1 interrupt on PCINT9 for song select.
+	PCICR = (1 << PCIE1);	// Enable PCINT1
+	PCMSK1 = (1 << PCINT9);	// Enable on pin change PCINT9
+	DDRB = DDRB & ~(1 << 1);	// Enable input on PCINT9
+	PORTB = PORTB | (1 << PORTB1);	// Enable pullup
 }
 
 static void i2c_init(void)

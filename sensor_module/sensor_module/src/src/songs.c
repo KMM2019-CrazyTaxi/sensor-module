@@ -235,11 +235,30 @@ static song_t cantina_band =
 	cantina_band_length
 };
 
-#define N_SONGS 11
+static uint8_t shut_up_pitch[1] =
+{
+	0
+};
+
+static uint8_t shut_up_length[1] =
+{
+	1
+};
+
+static song_t shut_up =
+{
+	1,
+	1,
+	shut_up_pitch,
+	shut_up_length
+};
+
+#define N_SONGS 12
 
 static song_t* songs[N_SONGS] = 
 {
 	&glassbilen,
+	&shut_up,
 	&blinka,
 	&cantina_band,
 	&let_it_go,

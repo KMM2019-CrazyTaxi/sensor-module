@@ -8,14 +8,17 @@
 #include "music.h"
 #include "sensor_data.h"
 #include "songs.h"
+#include "interrupt.h"
+#include "utilities.h"
 
 #include <asf.h>
 
 #define BETWEEN_NOTE_PAUSE 30000
 #define HORN_DISTANCE_MM 1000
 
-static const uint16_t SOUND_CNT_VALUES[25] =
+static const uint16_t SOUND_CNT_VALUES[26] =
 	{
+		63492,
 		5096,
 		4810,
 		4540,
@@ -43,8 +46,9 @@ static const uint16_t SOUND_CNT_VALUES[25] =
 		1274
 	};
 	
-static const uint16_t NOTE_FREQ_MULT_2[25] =
+static const uint16_t NOTE_FREQ_MULT_2[26] =
 	{
+		42,
 		523,
 		554,
 		587,
@@ -72,32 +76,6 @@ static const uint16_t NOTE_FREQ_MULT_2[25] =
 		2093
 	};
 
-/*
-// Blinka lilla stjärna.
-#define N_NOTES 42
-
-static uint8_t notes[N_NOTES] =
-	{
-		13, 13, 20, 20, 22, 22, 20,
-		18, 18, 17, 17, 15, 15, 13,
-		20, 20, 18, 18, 17, 17, 15,
-		20, 20, 18, 18, 17, 17, 15,
-		13, 13, 20, 20, 22, 22, 20,
-		18, 18, 17, 17, 15, 15, 13
-	};
-	
-static uint8_t note_length[N_NOTES] =
-	{
-		1, 1, 1, 1, 1, 1, 2,
-		1, 1, 1, 1, 1, 1, 2,
-		1, 1, 1, 1, 1, 1, 2,
-		1, 1, 1, 1, 1, 1, 2,
-		1, 1, 1, 1, 1, 1, 2,
-		1, 1, 1, 1, 1, 1, 2
-	};
-*/
-
-// Glassbilen
 static song_t* current_song;
 	
 static uint8_t note_index = 0;
@@ -142,7 +120,10 @@ uint16_t update_sound(void)
 {
 	if (!song_has_ended())
 	{
-		PORTA = ~PORTA;
+		if (current_song->note_pitch[note_index] != 0)
+		{
+			PORTA = ~PORTA;	
+		}
 		update_note_values();
 		if (note_has_ended())
 		{
@@ -157,7 +138,7 @@ uint16_t update_sound(void)
 	else if (*((uint16_t *) get_most_recent_sensor_data(RANGE_DATA_ID)) < HORN_DISTANCE_MM)
 	{
 		music_reset();
-		current_song = get_next_song();
+		//current_song = get_next_song();
 		return 1;
 	}
 	else
@@ -170,4 +151,13 @@ void music_init(void)
 {
 	music_reset();
 	current_song = get_next_song();
+}
+
+ISR(PCINT1_vect)
+{
+	if (PINB & (1 << PINB1))	// Only trigger on high, i.e. pressed button.
+	{
+		current_song = get_next_song();
+		music_reset();
+	}
 }
